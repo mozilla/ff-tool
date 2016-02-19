@@ -2,8 +2,22 @@
 
 import argparse
 
-CHANNELS = ['gr', 'beta', 'aurora', 'nightly', 'ALL']
+CHANNELS = ['gr', 'release', 'stable', 'beta', 'aurora', 'devedition', 'developeredition', 'nightly', 'ALL']
 DEFAULT_CHANNEL = 'nightly'
+
+def get_channel(channel):
+    # Remap some channel names.
+    channels = {
+        'release': 'gr',
+        'stable': 'gr',
+        'devedition': 'aurora',
+        'developeredition': 'aurora'
+    }
+    if channel in channels:
+        return channels[channel]
+
+    return channel
+
 
 parser = argparse.ArgumentParser(prog='ff-tool')
 subparsers = parser.add_subparsers(help='commands', dest='command')
@@ -71,6 +85,8 @@ uninstall.add_argument(
 )
 
 options = parser.parse_args()
+if "channel" in options:
+    options.channel = get_channel(options.channel)
 
 if options.command == 'download':
     print("Downloading Firefox... [channel: {0}]".format(options.channel))
