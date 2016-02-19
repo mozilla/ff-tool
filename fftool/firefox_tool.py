@@ -1,5 +1,5 @@
 """firefox test tool helper script"""
-import glob
+
 import configargparse
 
 
