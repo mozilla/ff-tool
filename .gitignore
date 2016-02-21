@@ -1,3 +1,5 @@
 _temp
 venv
 *.pyc
+*.egg-info/
+*.egg

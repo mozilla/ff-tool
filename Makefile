@@ -25,7 +25,7 @@ test:
 	tox
 
 clean:
-	rm -rf venv  *egg*  dist  ./docs/_build  .tox
+	rm -rf venv  *egg*  dist  ./docs/_build  .tox _temp
 	find . -name '*.pyc' -delete
 	find . -name '__pycache__' -type d -exec rm -fr {} \;
 
