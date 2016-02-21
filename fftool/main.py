@@ -2,10 +2,35 @@
 
 import argparse
 
-CHANNELS = ['gr', 'beta', 'aurora', 'nightly', 'ALL']
+from cmd_download import cmd_download
+from cmd_install import cmd_install
+from cmd_profile import cmd_profile
+from cmd_uninstall import cmd_uninstall
+
+CHANNELS = ['gr', 'release', 'stable',
+            'beta',
+            'aurora', 'devedition', 'developeredition',
+            'nightly',
+            'ALL']
 DEFAULT_CHANNEL = 'nightly'
 
-parser = argparse.ArgumentParser(prog='ff-tool')
+
+def get_channel(channel):
+    # Remap some channel names.
+    channels = {
+        'release': 'gr',
+        'stable': 'gr',
+        'devedition': 'aurora',
+        'developeredition': 'aurora'
+    }
+
+    if channel in channels:
+        return channels[channel]
+
+    return channel
+
+
+parser = argparse.ArgumentParser(prog='ff')
 subparsers = parser.add_subparsers(help='commands', dest='command')
 
 """
@@ -13,79 +38,13 @@ Global arguments...
 """
 # parser.add_argument('--foo', action='store_true', help='foo help')
 
-
-"""
-ff-tool <download> specific arguments...
-"""
-download = subparsers.add_parser('download', help='<download> command help')
-download.add_argument(
-    '-c',
-    '--channel',
-    choices=CHANNELS,
-    default=DEFAULT_CHANNEL,
-    type=str,
-    help='Download a specific Firefox channel via mozdownload.'
-)
-
-"""
-ff-tool <install> specific arguments...
-"""
-install = subparsers.add_parser('install', help='<install> command help')
-install.add_argument(
-    '-c',
-    '--channel',
-    choices=CHANNELS,
-    default=DEFAULT_CHANNEL,
-    type=str,
-    help='Install a specific Firefox channel.'
-)
-
-"""
-ff-tool <profile> specific arguments...
-"""
-profile = subparsers.add_parser('profile', help='<profile> command help')
-profile.add_argument(
-    '-c',
-    '--create',
-    type=str,
-    help='Create a new Firefox profile with the specified name.'
-)
-profile.add_argument(
-    '-d',
-    '--delete',
-    type=str,
-    help='Delete the specified Firefox profile.'
-)
-
-"""
-ff-tool <uninstall> specific arguments...
-"""
-uninstall = subparsers.add_parser('uninstall', help='<uninstall> command help')
-uninstall.add_argument(
-    '-c',
-    '--channel',
-    choices=CHANNELS,
-    default=DEFAULT_CHANNEL,
-    type=str,
-    help='Uninstall a specific Firefox channel.'
-)
+download = cmd_download(subparsers, CHANNELS, DEFAULT_CHANNEL)
+install = cmd_install(subparsers, CHANNELS, DEFAULT_CHANNEL)
+profile = cmd_profile(subparsers)
+uninstall = cmd_uninstall(subparsers, CHANNELS, DEFAULT_CHANNEL)
 
 options = parser.parse_args()
+if "channel" in options:
+    options.channel = get_channel(options.channel)
 
-if options.command == 'download':
-    print("Downloading Firefox... [channel: {0}]".format(options.channel))
-
-elif options.command == 'install':
-    print("Installing Firefox... [channel: {0}]".format(options.channel))
-
-elif options.command == 'profile':
-    if options.create:
-        print("Creating Firefox profile... [name: {0}]".format(options.create))
-
-    if options.delete:
-        print("Deleting Firefox profile... [name: {0}]".format(options.delete))
-
-elif options.command == 'uninstall':
-    print("Uninstalling Firefox... [channel: {0}]".format(options.channel))
-
-print(options)
+options.func(options)
