@@ -2,10 +2,13 @@
 
 from firefox_download import download
 
+
 class CMDDownload():
 
     def __init__(self, subparsers, CHANNELS, DEFAULT_CHANNEL):
-        download = subparsers.add_parser('download', help='<download> command help')
+        download = subparsers.add_parser(
+            'download',
+            help='<download> command help')
         download.add_argument(
             '-c',
             '--channel',
@@ -25,7 +28,8 @@ class CMDDownload():
 class CMDProfile():
 
     def __init__(self, subparsers):
-        profile = subparsers.add_parser('profile', help='<profile> command help')
+        profile = subparsers.add_parser(
+            'profile', help='<profile> command help')
         profile.add_argument(
             '-c',
             '--create',
@@ -42,16 +46,17 @@ class CMDProfile():
 
     def cmd(self, args):
         if args.create:
-            print('Creating Firefox profile... [name: {0}]'.format(args.create))
+            print('Creating Firefox profile... [name: {0}]'.format(args.create))  # NOQA
 
         if args.delete:
-            print('Deleting Firefox profile... [name: {0}]'.format(args.delete))
+            print('Deleting Firefox profile... [name: {0}]'.format(args.delete))  # NOQA
 
 
 class CMDInstall():
 
     def __init__(self, subparsers, CHANNELS, DEFAULT_CHANNEL):
-        install = subparsers.add_parser('install', help='<install> command help')
+        install = subparsers.add_parser(
+            'install', help='<install> command help')
         install.add_argument(
             '-c',
             '--channel',
@@ -62,16 +67,15 @@ class CMDInstall():
         )
         install.set_defaults(func=self.cmd)
 
-
     def cmd(self, args):
         print('Installing Firefox... [channel: {0}]'.format(args.channel))
-
 
 
 class CMDUninstall():
 
     def __init__(self, subparsers, CHANNELS, DEFAULT_CHANNEL):
-        uninstall = subparsers.add_parser('uninstall', help='<uninstall> command help')
+        uninstall = subparsers.add_parser(
+            'uninstall', help='<uninstall> command help')
         uninstall.add_argument(
             '-c',
             '--channel',
@@ -81,7 +85,6 @@ class CMDUninstall():
             help='Uninstall a specific Firefox channel.'
         )
         uninstall.set_defaults(func=self.cmd)
-
 
     def cmd(self, args):
         print('Uninstalling Firefox... [channel: {0}]'.format(args.channel))

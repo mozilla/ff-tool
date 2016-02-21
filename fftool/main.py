@@ -36,10 +36,10 @@ def main():
     """
     # parser.add_argument('--foo', action='store_true', help='foo help')
 
-    download = CMDDownload(subparsers, CHANNELS, DEFAULT_CHANNEL)
-    install = CMDInstall(subparsers, CHANNELS, DEFAULT_CHANNEL)
-    profile = CMDProfile(subparsers)
-    uninstall = CMDUninstall(subparsers, CHANNELS, DEFAULT_CHANNEL)
+    CMDDownload(subparsers, CHANNELS, DEFAULT_CHANNEL)
+    CMDInstall(subparsers, CHANNELS, DEFAULT_CHANNEL)
+    CMDProfile(subparsers)
+    CMDUninstall(subparsers, CHANNELS, DEFAULT_CHANNEL)
 
     options = parser.parse_args()
     if "channel" in options:
