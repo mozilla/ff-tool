@@ -1,7 +1,7 @@
 # ff-tool
 ff-tool is a Python CLI tool for downloading desktop Firefox versions, 
 as well as managing profiles and test prefs.  It is largely a glorified 
-convenience wrapper we'ver written around these amazing tools/libraries:
+convenience wrapper we've written around these amazing tools/libraries:
 
 * [mozdownload](https://github.com/mozilla/mozdownload)
 * [mozprofile](https://github.com/mozilla/mozprofile)
