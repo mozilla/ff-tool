@@ -7,7 +7,7 @@ convenience wrapper we'ver written around these amazing tools/libraries:
 * [mozprofile](https://github.com/mozilla/mozprofile)
 
 
-# NOTE: This tool is work in progress...  DO NOT USE
+:bangbang: _NOTE: This tool is work in progress...  DO NOT USE_ :bangbang:
 
 
 # Installation
