@@ -4,9 +4,9 @@ import argparse
 
 from cmd import CMDDownload, CMDInstall, CMDUninstall, CMDProfile
 
-CHANNELS = ['gr', 'release', 'stable',
+CHANNELS = ['release',
             'beta',
-            'aurora', 'devedition', 'developeredition',
+            'aurora',
             'nightly',
             'ALL']
 DEFAULT_CHANNEL = 'nightly'
@@ -15,10 +15,8 @@ DEFAULT_CHANNEL = 'nightly'
 def get_channel(channel):
     # Remap some channel names.
     channels = {
-        'release': 'gr',
-        'stable': 'gr',
-        'devedition': 'aurora',
-        'developeredition': 'aurora'
+        # 'devedition': 'aurora',
+        # 'developeredition': 'aurora'
     }
 
     if channel in channels:

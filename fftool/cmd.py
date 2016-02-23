@@ -1,7 +1,7 @@
 """module providing ff-tool command menus"""
 
 from firefox_download import download
-
+from firefox_profile import create_mozprofile
 
 class CMDDownload():
 
@@ -44,9 +44,17 @@ class CMDProfile():
         )
         profile.set_defaults(func=self.cmd)
 
+
     def cmd(self, args):
         if args.create:
             print('Creating Firefox profile... [name: {0}]'.format(args.create))  # NOQA
+
+            application = "loop-server"
+            test_type = "stack-check"
+            env = "stage"
+
+            create_mozprofile(application, test_type, env, args.create)
+
 
         if args.delete:
             print('Deleting Firefox profile... [name: {0}]'.format(args.delete))  # NOQA
