@@ -23,7 +23,7 @@ class FirefoxProfileHandler(object):
 
     def switch_prefs(self, profile_name, user_prefs, channel='nightly'):
         channel_firefox_bin = self.config.get(channel, 'PATH_FIREFOX_BIN_ENV')
-        print(('{0} -CreateProfile {1}'.format(channel_firefox_bin, profile_name)))
+        print(('{0} -CreateProfile {1}'.format(channel_firefox_bin, profile_name)))  # NOQA
         print('copy prefs.js to <new profile name> dir')
 
     def delete_all_profiles(self):

@@ -30,7 +30,7 @@ config = configparser.ConfigParser()
 def _parse_args():
     """Parses out args for CLI"""
     parser = configargparse.ArgumentParser(
-        description='CLI tool for creating Firefox profiles via mozprofile CLI')
+        description='CLI tool for creating Firefox profiles')
     parser.add_argument('-a', '--application',
                         required=True,
                         help='Application to test. Example: "loop-server"')

@@ -34,7 +34,7 @@ setup(name='ff-tool',
       zip_safe=False,
       entry_points='''
       [console_scripts]
-      fftool = fftool.main:menu
+      ff = fftool.main:main
       ''',
       **extra_options
       )

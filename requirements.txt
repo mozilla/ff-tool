@@ -1,4 +1,6 @@
 Fabric3
 configargparse
 configparser
-mozdownload
+mozdownload==1.20.2
+tox==2.3.1
+flake8==2.5.4
