@@ -3,6 +3,7 @@
 from firefox_download import download 
 from firefox_install import  FirefoxInstall 
 from firefox_profile import create_mozprofile
+from firefox_run import launch_firefox 
 
 PATH_CONFIGS = './configs/'
 class CMDDownload():
@@ -100,3 +101,27 @@ class CMDUninstall():
 
     def cmd(self, args):
         print('Uninstalling Firefox... [channel: {0}]'.format(args.channel))
+
+
+
+class CMDRun():
+
+    def __init__(self, subparsers, CHANNELS, DEFAULT_CHANNEL):
+        run = subparsers.add_parser(
+            'run',
+            help='<run> command help')
+        run.add_argument(
+            '-c',
+            '--channel',
+            choices=CHANNELS,
+            default=DEFAULT_CHANNEL,
+            type=str,
+            help='Run a specific Firefox channel.'
+        )
+        run.set_defaults(func=self.cmd)
+
+    def cmd(self, args):
+        print('launch Firefox... [channel: {0}]'.format(args.channel))
+
+        launch_firefox(args.channel)
+
