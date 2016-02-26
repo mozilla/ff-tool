@@ -64,13 +64,13 @@ $ ff -h
 ## Launch browser, clean profile
 
 * version: Nightly
-* profile_name: <random>
+* profile_name: \<random\>
 ```
 $ ff run
 ```
 
 * version: Developer Edition (aurora) 
-* profile_name: <random>
+* profile_name: \<random\>
 ```
 $ ff run -c aurora
 ```
