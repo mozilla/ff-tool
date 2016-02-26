@@ -10,10 +10,7 @@ class FirefoxInstall(object):
 
     def __init__(self, config, archive_dir='temp'):
 
-        #self.CACHE_FILE = 'cache.ini'
         self.out_dir = archive_dir
-        #self.cache_path = os.path.join(self.out_dir, self.CACHE_FILE)
-        #self.cache = IniHandler(self.cache_path)
 
         # Do some basic type checking on the `config` attribute.
         if isinstance(config, IniHandler):
@@ -27,12 +24,13 @@ class FirefoxInstall(object):
             sys.exit('FirefoxInstall: Unexpected config data type')
 
     def install_all(self, force=False):
+
         IniHandler.banner('INSTALLING FIREFOXES')
         for channel in self.config.sections():
             self.install_channel(channel, force)
 
     def install_channel(self, channel, force=False):
-        #was_cached = self.cache.config.getboolean('cached', channel)
+
         filename = self.config.get(channel, 'DOWNLOAD_FILENAME')
         install_dir = self.config.get(channel, 'PATH_FIREFOX_APP')
         installer = os.path.join('.', self.out_dir, filename)
@@ -58,8 +56,7 @@ class FirefoxInstall(object):
             elif IniHandler.is_mac():
                 # TODO: Mount the DMG to /Volumes and copy to /Applications?
 
-                cmd_hdiutil = 'hdiutil' #local('which hdiutil')
-
+                cmd_hdiutil = 'hdiutil'
                 name_browser = 'FirefoxNightly'
                 path_temp = '_temp/browsers'
                 path_temp_dmg = '_temp/browsers/_dmg_temp'

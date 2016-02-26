@@ -1,12 +1,24 @@
 # ff-tool
-ff-tool is a Python CLI tool for downloading desktop Firefox versions, 
-as well as managing profiles and test prefs.  It is largely a glorified 
-convenience wrapper we've written around these amazing tools/libraries:
+ff-tool is a Python CLI tool we've created to facilitate browser testing of
+ cloud services.  
 
+It is largely a glorified convenience wrapper we've written around these 
+amazing tools/libraries (see note below):
 * [mozdownload](https://github.com/mozilla/mozdownload)
 * [mozprofile](https://github.com/mozilla/mozprofile)
 
-NOTE:
+Summary:
+Our typical use case is launching various Firefox browser versions with a 
+fresh profile and loading custom preferences. This tool enables us to do this
+quickly with a 1-liner from the CLI.
+
+Features:
+1. DownloadFirefox desktop versions 
+* (Nightly, Developer Edition, Beta, Release) 
+2. Manage profiles 
+3. Load test preferences.  
+
+Note:
 If you plan on creating a tool of your own, please import the above libs 
 directly in your script(s). This tool was designed for convenience of our 
 team for testing Cloud Services and not intended to be used as a library.
@@ -35,18 +47,23 @@ $ make clean
 # Run
 _When not specified, ff will use defaults_
 
-## Example(s)
+## Help 
 ```
 $ ff -h
-$ ff download -h
-$ ff download -c nightly
 ```
 
 ## Launch browser, clean profile
+
 * version: Nightly
 * profile_name: <random>
 ```
 $ ff run
+```
+
+* version: Developer Edition (aurora) 
+* profile_name: <random>
+```
+$ ff run -c aurora
 ```
 
 ## Launch browser, clean profile, specify profile name
