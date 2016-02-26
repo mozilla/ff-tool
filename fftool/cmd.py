@@ -1,8 +1,10 @@
 """module providing ff-tool command menus"""
 
-from firefox_download import download
+from firefox_download import download 
+from firefox_install import  FirefoxInstall 
 from firefox_profile import create_mozprofile
 
+PATH_CONFIGS = './configs/'
 class CMDDownload():
 
     def __init__(self, subparsers, CHANNELS, DEFAULT_CHANNEL):
@@ -77,6 +79,8 @@ class CMDInstall():
 
     def cmd(self, args):
         print('Installing Firefox... [channel: {0}]'.format(args.channel))
+        ff_install = FirefoxInstall(PATH_CONFIGS)
+        ff_install.install_all(True)
 
 
 class CMDUninstall():

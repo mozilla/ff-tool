@@ -1,18 +1,19 @@
 #!/usr/bin/env python
 
+import os
+import sys
 from firefox_env_handler import IniHandler
 from fabric.api import local
 
-import os
-import sys
-
 
 class FirefoxInstall(object):
+
     def __init__(self, config, archive_dir='temp'):
-        self.CACHE_FILE = 'cache.ini'
+
+        #self.CACHE_FILE = 'cache.ini'
         self.out_dir = archive_dir
-        self.cache_path = os.path.join(self.out_dir, self.CACHE_FILE)
-        self.cache = IniHandler(self.cache_path)
+        #self.cache_path = os.path.join(self.out_dir, self.CACHE_FILE)
+        #self.cache = IniHandler(self.cache_path)
 
         # Do some basic type checking on the `config` attribute.
         if isinstance(config, IniHandler):
@@ -31,12 +32,12 @@ class FirefoxInstall(object):
             self.install_channel(channel, force)
 
     def install_channel(self, channel, force=False):
-        was_cached = self.cache.config.getboolean('cached', channel)
+        #was_cached = self.cache.config.getboolean('cached', channel)
         filename = self.config.get(channel, 'DOWNLOAD_FILENAME')
         install_dir = self.config.get(channel, 'PATH_FIREFOX_APP')
         installer = os.path.join('.', self.out_dir, filename)
 
-        if force or not was_cached:
+        if force: # or not was_cached:
             print(('Installing {0}'.format(channel)))
 
             if IniHandler.is_linux():
@@ -56,7 +57,29 @@ class FirefoxInstall(object):
 
             elif IniHandler.is_mac():
                 # TODO: Mount the DMG to /Volumes and copy to /Applications?
-                print('Do something...')
+
+                cmd_hdiutil = 'hdiutil' #local('which hdiutil')
+
+                name_browser = 'FirefoxNightly'
+                path_temp = '_temp/browsers'
+                path_temp_dmg = '_temp/browsers/_dmg_temp'
+
+                path_browser_dmg = '{0}/{1}.dmg'.format(
+                    path_temp, name_browser)
+
+                path_browser_app = '{0}/{1}.app'.format(
+                    path_temp_dmg, name_browser) 
+
+                cmd = '{0} attach {1} -mountpoint {2}'.format(
+                    cmd_hdiutil, path_browser_dmg, path_temp_dmg)
+                local(cmd)
+
+                cmd = 'cp -r {0} {1}'.format(
+                    path_browser_app, path_temp) 
+                local(cmd)
+
+                cmd = '{0} detach {1}'.format(cmd_hdiutil, path_temp_dmg)
+                local(cmd)
 
         else:
             print(('[{0}] was cached, skipping install.'.format(channel)))
