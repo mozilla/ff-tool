@@ -2,11 +2,9 @@
 
 **Summary**  
 
-ff-tool is a Python CLI tool we've created to facilitate browser testing of
- cloud services.  
-
-It is largely a glorified convenience wrapper we've written around these 
-amazing tools/libraries (see note below):  
+ff-tool is a Python CLI tool we've created to facilitate browser testing of 
+cloud services. It is largely a convenience wrapper we've written around 
+these amazing tools/libraries (see note below):  
 
 * [mozdownload](https://github.com/mozilla/mozdownload)
 * [mozprofile](https://github.com/mozilla/mozprofile)
