@@ -3,11 +3,7 @@ import shutil
 from fabric.api import local
 
 
-cmd_hdiutil = None
-
-output = local("which hdiutil", capture=True)
-for line in output.splitlines():
-    cmd_hdiutil = line
+cmd_hdiutil = local("which hdiutil", capture=True)
 
 
 def replace_ext(filename, ext):
@@ -39,42 +35,30 @@ def detach(mountpoint):
 
 
 def move_app(src, dest):
+    if os.path.exists(dest):
+        print("Deleting existing {0} file".format(dest))
+        shutil.rmtree(dest)
+
+    print("Moving {0} to {1}".format(src, dest))
+    shutil.copytree(src, dest)
+
+
+def extract_dmg(dmg_path, app_src_filename, channel):
     """
-    Loop over all the files in the `src` file's directory looking for any *.app
-    file and copy it into the `dest` directory.
+    Mount the *.dmg image, copy the *.app file, then unmount the *.dmg image.
     """
-    tmp_dir = os.path.dirname(src)
-    # Loop over each file in the `temp_dir` looking for any *.app files.
-    for file in os.listdir(tmp_dir):
-        if file.endswith(".app"):
-            # Once we match our *.app file, delete any existing file in the
-            # `dest` folder and copy the new *.app over.
-            src_path = os.path.join(tmp_dir, file)
+    dmg_dirname = os.path.dirname(dmg_path)
+    dmg_filename = os.path.basename(dmg_path)
+    app_dest_filename = replace_ext(dmg_filename, "app")
+    tmp_dirname = os.path.join(dmg_dirname, "_dmg_temp")
+    app_src_path = os.path.join(tmp_dirname, app_src_filename)
+    app_dest_path = os.path.join(dmg_dirname, app_dest_filename)
 
-            if os.path.exists(dest):
-                print("Deleting existing {0} file".format(dest))
-                shutil.rmtree(dest)
-
-            print("Moving {0} to {1}".format(src_path, dest))
-            shutil.copytree(src_path, dest)
-
-
-def extract_dmg(file):
-    """
-    Mount the *.dmg, copy the *.app file, and unmount the *.dmg file.
-    """
-    dmg_dirname = os.path.dirname(file)
-    dmg_filename = os.path.basename(file)
-    app_filename = replace_ext(dmg_filename, "app")
-    tmp_dir = os.path.join(dmg_dirname, "_dmg_temp")
-    app_src_path = os.path.join(tmp_dir, app_filename)
-    app_dest_path = os.path.join(dmg_dirname, app_filename)
-
-    attach(file, mountpoint=tmp_dir)
+    attach(dmg_path, mountpoint=tmp_dirname)
     move_app(app_src_path, app_dest_path)
-    detach(mountpoint=tmp_dir)
+    detach(mountpoint=tmp_dirname)
     ver = get_firefox_version(app_dest_path)
-    print("Installed {0}".format(ver))
+    print("Installed {0} ({1})".format(ver, channel))
 
 
 def get_firefox_version(app):
@@ -87,9 +71,3 @@ def get_firefox_version(app):
     output = local(cmd, capture=True)
     for line in output.splitlines():
         return line
-
-
-extract_dmg("_temp/browsers/FirefoxRelease.dmg")
-extract_dmg("_temp/browsers/FirefoxBeta.dmg")
-extract_dmg("_temp/browsers/FirefoxDevEdition.dmg")
-extract_dmg("_temp/browsers/FirefoxNightly.dmg")
