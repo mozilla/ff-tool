@@ -6,90 +6,48 @@ from firefox_env_handler import IniHandler
 from fabric.api import local
 
 
-class FirefoxInstall(object):
+env = IniHandler()
+env.load_os_config('configs')
 
-    def __init__(self, config, archive_dir='temp'):
 
-        self.out_dir = archive_dir
+def install(channel):
+    if channel == 'ALL':
+        install_all()
+        return
 
-        # Do some basic type checking on the `config` attribute.
-        if isinstance(config, IniHandler):
-            self.config = config
+    filename = env.get(channel, 'DOWNLOAD_FILENAME')
+    install_dir = env.get(channel, 'PATH_FIREFOX_APP')
 
-        elif isinstance(config, str):
-            self.config = IniHandler()
-            self.config.load_os_config(config)
+    if IniHandler.is_linux():
+        local('tar -jxf {0} && mv firefox {1}'.format(installer, install_dir))  # NOQA
 
-        else:
-            sys.exit('FirefoxInstall: Unexpected config data type')
+    elif IniHandler.is_windows():
+        local('{0} -ms'.format(installer))
 
-    def install_all(self, force=False):
+        if channel == 'beta':
+            # Since Beta and General Release channels install
+            # to the same directory, install Beta first then
+            # rename the directory.
+            gr_install_dir = self.config.get('gr', 'PATH_FIREFOX_APP')
+            local('mv "{0}" "{1}"'.format(gr_install_dir, install_dir))
 
-        IniHandler.banner('INSTALLING FIREFOXES')
-        for channel in self.config.sections():
-            self.install_channel(channel, force)
+    elif IniHandler.is_mac():
+        from hdiutil import extract_dmg
 
-    def install_channel(self, channel, force=False):
+        app_filename = env.get(channel, "APP_FILENAME")
+        dmg_filename = env.get(channel, "DOWNLOAD_FILENAME")
+        dmg_dirname = os.path.join('_temp', 'browsers', dmg_filename)
 
-        filename = self.config.get(channel, 'DOWNLOAD_FILENAME')
-        install_dir = self.config.get(channel, 'PATH_FIREFOX_APP')
-        installer = os.path.join('.', self.out_dir, filename)
+        extract_dmg(dmg_dirname, app_filename, channel)
 
-        if force: # or not was_cached:
-            print(('Installing {0}'.format(channel)))
 
-            if IniHandler.is_linux():
-                # TODO: Move to /opt/* and chmod file?
-                # `tar -jxf firefox-beta.tar.gz -C ./beta --strip-components=1`?  # NOQA
-                local('tar -jxf {0} && mv firefox {1}'.format(installer, install_dir))  # NOQA
-
-            elif IniHandler.is_windows():
-                local('{0} -ms'.format(installer))
-
-                if channel == 'beta':
-                    # Since Beta and General Release channels install
-                    # to the same directory, install Beta first then
-                    # rename the directory.
-                    gr_install_dir = self.config.get('gr', 'PATH_FIREFOX_APP')
-                    local('mv "{0}" "{1}"'.format(gr_install_dir, install_dir))
-
-            elif IniHandler.is_mac():
-                # TODO: Mount the DMG to /Volumes and copy to /Applications?
-
-                cmd_hdiutil = 'hdiutil'
-                name_browser = 'FirefoxNightly'
-                path_temp = '_temp/browsers'
-                path_temp_dmg = '_temp/browsers/_dmg_temp'
-
-                path_browser_dmg = '{0}/{1}.dmg'.format(
-                    path_temp, name_browser)
-
-                path_browser_app = '{0}/{1}.app'.format(
-                    path_temp_dmg, name_browser) 
-
-                cmd = '{0} attach {1} -mountpoint {2}'.format(
-                    cmd_hdiutil, path_browser_dmg, path_temp_dmg)
-                local(cmd)
-
-                cmd = 'cp -r {0} {1}'.format(
-                    path_browser_app, path_temp) 
-                local(cmd)
-
-                cmd = '{0} detach {1}'.format(cmd_hdiutil, path_temp_dmg)
-                local(cmd)
-
-        else:
-            print(('[{0}] was cached, skipping install.'.format(channel)))
-
-        cmd = self.config.get(channel, 'PATH_FIREFOX_BIN_ENV')
-        # local('"{0}" --version # {1}'.format(self.config.get(channel,
-        #    'PATH_FIREFOX_BIN_ENV'), channel))
-        local('"{0}" --version # {1}'.format(cmd, channel))
+def install_all():
+    for channel in env.sections():
+        install(channel)
 
 
 def main():
-    ff_install = FirefoxInstall('./configs/')
-    ff_install.install_all(True)
+    install_all()
 
 
 if __name__ == '__main__':
