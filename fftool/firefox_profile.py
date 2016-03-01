@@ -49,6 +49,7 @@ def prefs_paths(application, test_type, env='stage'):
 
 
 def create_mozprofile(application, test_type, env, profile_dir):
+
     full_profile_dir = os.path.join(PATH_TEMP, profile_dir)
 
     # If temp profile already exists, kill it so it doesn't merge unexpectedly.

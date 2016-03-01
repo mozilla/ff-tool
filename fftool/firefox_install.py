@@ -52,37 +52,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-
-"""
-    def install_channel(self, channel):
-
-
-        #was_cached = self.cache.config.getboolean('cached', channel)
-        filename = self.config.get(channel, 'DOWNLOAD_FILENAME')
-        install_dir = self.config.get(channel, 'PATH_FIREFOX_APP')
-        installer = os.path.join('.', self.out_dir, filename)
-
-        print(('Installing {0}'.format(channel)))
-
-        if IniHandler.is_linux():
-            
-
-        elif IniHandler.is_windows():
-
-
-        elif IniHandler.is_mac():
-            from hdiutil import extract_dmg
-
-            print(install_dir)
-            print(installer)
-
-            extract_dmg("_temp/browsers/FirefoxBeta.dmg")
-
-
-        cmd = self.config.get(channel, 'PATH_FIREFOX_BIN_ENV')
-        # local('"{0}" --version # {1}'.format(self.config.get(channel,
-        #    'PATH_FIREFOX_BIN_ENV'), channel))
-        local('"{0}" --version # {1}'.format(cmd, channel))
-"""

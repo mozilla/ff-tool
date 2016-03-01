@@ -77,9 +77,9 @@ def download_all():
         download(channel)
 
 
-def main():
-    download_all()
+#def main():
+#    download_all()
 
 
-if __name__ == '__main__':
-    main()
+#if __name__ == '__main__':
+#    main()

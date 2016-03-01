@@ -2,7 +2,7 @@
 
 import argparse
 
-from cmd import CMDDownload, CMDInstall, CMDUninstall, CMDProfile
+from cmd import CMDDownload, CMDInstall, CMDUninstall, CMDProfile, CMDRun
 
 CHANNELS = ['release',
             'beta',
@@ -38,6 +38,7 @@ def main():
     CMDInstall(subparsers, CHANNELS, DEFAULT_CHANNEL)
     CMDProfile(subparsers)
     CMDUninstall(subparsers, CHANNELS, DEFAULT_CHANNEL)
+    CMDRun(subparsers, CHANNELS, DEFAULT_CHANNEL)
 
     options = parser.parse_args()
     if "channel" in options:
