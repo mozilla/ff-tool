@@ -75,11 +75,3 @@ def download(channel):
 def download_all():
     for channel in config.sections():
         download(channel)
-
-
-#def main():
-#    download_all()
-
-
-#if __name__ == '__main__':
-#    main()
