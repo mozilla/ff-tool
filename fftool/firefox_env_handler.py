@@ -7,6 +7,10 @@ import shutil
 import sys
 import configparser
 
+from outlawg import Outlawg
+
+out = Outlawg()
+
 
 class FirefoxEnvHandler():
     LINUX = 'linux'
@@ -53,19 +57,6 @@ class FirefoxEnvHandler():
         return cls.get_os() == cls.WINDOWS
 
     @staticmethod
-    def banner(str, length=79, delimiter='='):
-        """
-        Throws up a debug header to make output subjectively "easier" to read
-        in stdout.
-        """
-        if length <= 0:
-            length = len(str)
-
-        divider = delimiter * length
-        output = '\n'.join(['', divider, str, divider])
-        print(output)
-
-    @staticmethod
     def clean_folder(path, foot_gun=True):
         """
         Recursively delete the specified path.
@@ -93,7 +84,7 @@ class IniHandler(FirefoxEnvHandler):
         """
         Load an INI config based on the specified `ini_path`.
         """
-        IniHandler.banner('LOADING {0}'.format(ini_path), 79, '-')
+        out.header('LOADING {0}'.format(ini_path))
 
         # Make sure the specified config file exists, fail hard if missing.
         if not os.path.isfile(ini_path):
@@ -115,7 +106,7 @@ class IniHandler(FirefoxEnvHandler):
         Generate and save the output environment file so we can source it from
         something like .bashrc or .bashprofile.
         """
-        IniHandler.banner('CREATING ENV FILE ({0})'.format(out_file))
+        out.header('CREATING ENV FILE ({0})'.format(out_file))
 
         env_fmt = "export %s=\"%s\""
         env_vars = []

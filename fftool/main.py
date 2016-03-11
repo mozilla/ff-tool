@@ -26,7 +26,6 @@ def main():
         '--channel',
         choices=CHANNELS,
         default=DEFAULT_CHANNEL,
-        type=str,
         help='A specific Firefox channel.'
     )
 
@@ -34,7 +33,7 @@ def main():
     parser.add_argument(
         '-p',
         '--profile',
-        help='Name of the Firefox to create/use.'
+        help='Name of the Firefox profile to create/use.'
     )
 
     parser.add_argument(
@@ -46,7 +45,7 @@ def main():
     parser.add_argument(
         '-t',
         '--test-type',
-        help="TODO: (ie: e2e-test, stack-check)."
+        help="Name of the test-type (ie: e2e-test, stack-check)."
     )
 
     parser.add_argument(
@@ -58,39 +57,32 @@ def main():
     parser.add_argument(
         '--no-launch',
         action='store_true',
-        help="TODO:"
+        help="Whether or not to launch a Firefox instance."
     )
 
-    """
-    TODO-this:
     parser.add_argument(
         '--no-profile',
-        help="TODO:"
+        action='store_true',
+        help="Whether to create a profile. This is used for the daily refresh job."
     )
-    """
 
     options = parser.parse_args()
 
-    # INSTALL
-    print("Installing...")
+    # DOWNLOAD/INSTALL
     download(options.channel)
 
     # PROFILE
-    print("Creating profile...")
-
-    profile_path = create_mozprofile(options.profile, options.app, options.test_type, options.env)
+    if not options.no_profile:
+        profile_path = create_mozprofile(
+            options.profile,
+            application=options.app,
+            test_type=options.test_type,
+            env=options.env
+        )
 
     # LAUNCH
     if not options.no_launch:
-        print("Launching!")
         launch_firefox(profile_path, channel=options.channel)
-
-    """
-    if not options.env:
-        print("Unknown env")
-    else:
-        print("Load settings for env: {0}".format(options.env))
-    """
 
 
 if __name__ == '__main__':

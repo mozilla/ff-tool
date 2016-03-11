@@ -3,10 +3,12 @@
 import os
 from firefox_env_handler import IniHandler
 from fabric.api import local
-
+from outlawg import Outlawg
 
 env = IniHandler()
 env.load_os_config('configs')
+
+out = Outlawg()
 
 
 def install(channel):
@@ -14,7 +16,7 @@ def install(channel):
         install_all()
         return
 
-    filename = env.get(channel, 'DOWNLOAD_FILENAME')
+    # filename = env.get(channel, 'DOWNLOAD_FILENAME')
     install_dir = env.get(channel, 'PATH_FIREFOX_APP')
 
     if IniHandler.is_linux():
@@ -39,6 +41,15 @@ def install(channel):
         dmg_dirname = os.path.join('_temp', 'browsers', dmg_filename)
 
         extract_dmg(dmg_dirname, app_src_filename, app_dest_filename, channel)
+
+    firefox_version = get_firefox_version(channel)
+    out.header("Installed {0} ({1})".format(firefox_version, channel))
+
+
+def get_firefox_version(channel):
+    path_firefox_bin = env.get(channel, "PATH_FIREFOX_BIN_ENV")
+    cmd = "{0} --version".format(path_firefox_bin)
+    return local(cmd, capture=True)
 
 
 def install_all():

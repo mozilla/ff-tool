@@ -9,9 +9,10 @@ Module to download OS-specific versions of Firefox:
 import os
 import time
 
-from firefox_install import install
+from firefox_install import install, get_firefox_version
 from firefox_env_handler import IniHandler
 from mozdownload import FactoryScraper
+from outlawg import Outlawg
 
 try:
     import configparser  # Python 3
@@ -21,6 +22,7 @@ except:
 
 BASE_DIR = os.path.join('_temp', 'browsers')
 CONFIG_CHANNELS = os.path.join('configs', 'channels.ini')
+SCRIPT_START_TIME = time.time()
 
 config = configparser.ConfigParser()
 config.read(CONFIG_CHANNELS)
@@ -28,7 +30,7 @@ config.read(CONFIG_CHANNELS)
 env = IniHandler()
 env.load_os_config('configs')
 
-SCRIPT_START_TIME = time.time()
+out = Outlawg()
 
 
 def replace_ext(filename, ext):
@@ -62,16 +64,23 @@ def download(channel):
         destination=download_path
     )
 
-    print("Downloading {0} to {1}".format(channel, download_path))
+    args = {"channel": channel, "download_path": download_path}
+    print("Downloading {channel} to {download_path}".format(**args))
     scraper.download()
 
     is_recent_file = modification_date(download_path) > SCRIPT_START_TIME
+    firefox_bin = env.get(channel, 'PATH_FIREFOX_BIN_ENV')
 
-    if is_recent_file:
-        print("You should install")
+    # If the *.dmg file was downloaded recently, or we don't have the *.app
+    # file installed, install the current Firefox channel.
+    if is_recent_file or not os.path.exists(firefox_bin):
         install(channel)
+
     else:
-        print("Not recent. skipping install")
+        firefox_version = get_firefox_version(channel)
+        args = {"channel": channel, "version": firefox_version}
+        msg = "You have the latest version of {channel} installed ({version})."
+        out.header(msg.format(**args))
 
 
 def download_all():

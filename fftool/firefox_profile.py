@@ -21,7 +21,7 @@ except:
     import ConfigParser as configparser  # Python 2
 
 PATH_PROJECT = os.path.abspath('.')
-PROFILE_DIR = os.path.join(PATH_PROJECT, '_temp', 'profiles')
+BASE_PROFILE_DIR = os.path.join(PATH_PROJECT, '_temp', 'profiles')
 FILE_PREFS = 'prefs.ini'
 
 config = configparser.ConfigParser()
@@ -41,6 +41,8 @@ def prefs_paths(application, test_type, env='stage'):
             # Make sure the specified INI file has the specified section.
             if config.has_section(env):
                 valid_paths.append(path_app + ":" + env)
+            else:
+                valid_paths.append(path_app)
 
         if test_type:
             path_app_test_type = os.path.join(path_app_dir, test_type, FILE_PREFS)
@@ -48,23 +50,22 @@ def prefs_paths(application, test_type, env='stage'):
                 config.read(path_app_test_type)
                 if config.has_section(env):
                     valid_paths.append(path_app_test_type + ":" + env)
+                else:
+                    valid_paths.append(path_app_test_type)
 
     return valid_paths
 
 
 def create_mozprofile(profile_dir, application=None, test_type=None, env=None):
     if not profile_dir:
-        print("Create random profile")
-        full_profile_dir = mkdtemp(dir=PROFILE_DIR, prefix="fftool.", suffix="")
-        print(full_profile_dir)
-    else:
-        print("Using named profile")
-        full_profile_dir = os.path.join(PROFILE_DIR, profile_dir)
+        full_profile_dir = mkdtemp(dir=BASE_PROFILE_DIR, prefix="fftool.", suffix="")
 
-    # If temp profile already exists, kill it so it doesn't merge unexpectedly.
-    if os.path.exists(full_profile_dir):
-        msg = "WARNING: Profile '{0}' already exists. Merging configs."
-        out.header(msg.format(profile_dir), 'XL', '-')
+    else:
+        full_profile_dir = os.path.join(BASE_PROFILE_DIR, profile_dir)
+
+        if os.path.exists(full_profile_dir):
+            msg = "WARNING: Profile '{0}' already exists. Merging configs."
+            out.header(msg.format(full_profile_dir), 'XL', '-')
 
     prefs = Preferences()
     for path in prefs_paths(application, test_type):
