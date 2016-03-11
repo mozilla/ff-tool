@@ -4,6 +4,7 @@ import argparse
 
 from firefox_download import download
 from firefox_profile import create_mozprofile
+from firefox_run import launch_firefox
 
 CHANNELS = ['release',
             'beta',
@@ -70,7 +71,6 @@ def main():
 
     options = parser.parse_args()
 
-
     # INSTALL
     print("Installing...")
     download(options.channel)
@@ -78,17 +78,20 @@ def main():
     # PROFILE
     print("Creating profile...")
 
+    profile_path = create_mozprofile(options.profile, options.app, options.test_type, options.env)
+
     # LAUNCH
     if not options.no_launch:
         print("Launching!")
+        launch_firefox(profile_path, channel=options.channel)
 
-
+    """
     if not options.env:
         print("Unknown env")
     else:
         print("Load settings for env: {0}".format(options.env))
+    """
 
-    create_mozprofile(options.profile, options.app, options.test_type, options.env)
 
 if __name__ == '__main__':
     main()

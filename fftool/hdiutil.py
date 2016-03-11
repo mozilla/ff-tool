@@ -43,13 +43,11 @@ def move_app(src, dest):
     shutil.copytree(src, dest)
 
 
-def extract_dmg(dmg_path, app_src_filename, channel):
+def extract_dmg(dmg_path, app_src_filename, app_dest_filename, channel):
     """
     Mount the *.dmg image, copy the *.app file, then unmount the *.dmg image.
     """
     dmg_dirname = os.path.dirname(dmg_path)
-    dmg_filename = os.path.basename(dmg_path)
-    app_dest_filename = replace_ext(dmg_filename, "app")
     tmp_dirname = os.path.join(dmg_dirname, "_dmg_temp")
     app_src_path = os.path.join(tmp_dirname, app_src_filename)
     app_dest_path = os.path.join(dmg_dirname, app_dest_filename)

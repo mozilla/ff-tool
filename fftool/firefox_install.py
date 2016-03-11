@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import os
-import sys
 from firefox_env_handler import IniHandler
 from fabric.api import local
 
@@ -34,11 +33,12 @@ def install(channel):
     elif IniHandler.is_mac():
         from hdiutil import extract_dmg
 
-        app_filename = env.get(channel, "APP_FILENAME")
+        app_src_filename = env.get(channel, "APP_SRC_FILENAME")
+        app_dest_filename = env.get(channel, "APP_DEST_FILENAME")
         dmg_filename = env.get(channel, "DOWNLOAD_FILENAME")
         dmg_dirname = os.path.join('_temp', 'browsers', dmg_filename)
 
-        extract_dmg(dmg_dirname, app_filename, channel)
+        extract_dmg(dmg_dirname, app_src_filename, app_dest_filename, channel)
 
 
 def install_all():

@@ -10,10 +10,10 @@ directory.
 """
 
 import os
-import shutil
 from tempfile import mkdtemp
 
 from mozprofile import Profile, Preferences
+from outlawg import Outlawg
 
 try:
     import configparser  # Python 3
@@ -25,6 +25,8 @@ PROFILE_DIR = os.path.join(PATH_PROJECT, '_temp', 'profiles')
 FILE_PREFS = 'prefs.ini'
 
 config = configparser.ConfigParser()
+out = Outlawg()
+
 
 def prefs_paths(application, test_type, env='stage'):
     path_global = os.path.join(PATH_PROJECT, 'configs', FILE_PREFS)
@@ -61,8 +63,8 @@ def create_mozprofile(profile_dir, application=None, test_type=None, env=None):
 
     # If temp profile already exists, kill it so it doesn't merge unexpectedly.
     if os.path.exists(full_profile_dir):
-        print("Deleting existing profile... {0}".format(full_profile_dir))
-        shutil.rmtree(full_profile_dir)
+        msg = "WARNING: Profile '{0}' already exists. Merging configs."
+        out.header(msg.format(profile_dir), 'XL', '-')
 
     prefs = Preferences()
     for path in prefs_paths(application, test_type):

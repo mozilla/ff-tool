@@ -6,7 +6,6 @@ Module to download OS-specific versions of Firefox:
 4. Nightly (nightly)
 """
 
-import datetime
 import os
 import time
 
@@ -69,7 +68,10 @@ def download(channel):
     is_recent_file = modification_date(download_path) > SCRIPT_START_TIME
 
     if is_recent_file:
+        print("You should install")
         install(channel)
+    else:
+        print("Not recent. skipping install")
 
 
 def download_all():
