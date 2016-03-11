@@ -3,7 +3,7 @@
 import argparse
 
 from firefox_download import download
-
+from firefox_profile import create_mozprofile
 
 CHANNELS = ['release',
             'beta',
@@ -83,18 +83,12 @@ def main():
         print("Launching!")
 
 
-
     if not options.env:
         print("Unknown env")
     else:
         print("Load settings for env: {0}".format(options.env))
 
-
-    if not options.profile:
-        print("Create random profile")
-    else:
-        print("Create new profile with name {0}".format(options.profile))
-
+    create_mozprofile(options.profile, options.app, options.test_type, options.env)
 
 if __name__ == '__main__':
     main()
