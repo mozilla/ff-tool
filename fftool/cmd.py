@@ -1,11 +1,12 @@
 """module providing ff-tool command menus"""
 
 from firefox_download import download
-from firefox_install import  install
+from firefox_install import install
 from firefox_profile import create_mozprofile
-from firefox_run import launch_firefox 
+from firefox_run import launch_firefox
 
 PATH_CONFIGS = './configs/'
+
 
 class CMDDownload():
 
@@ -48,7 +49,6 @@ class CMDProfile():
         )
         profile.set_defaults(func=self.cmd)
 
-
     def cmd(self, args):
         if args.create:
             print('Creating Firefox profile... [name: {0}]'.format(args.create))  # NOQA
@@ -58,7 +58,6 @@ class CMDProfile():
             env = "stage"
 
             create_mozprofile(application, test_type, env, args.create)
-
 
         if args.delete:
             print('Deleting Firefox profile... [name: {0}]'.format(args.delete))  # NOQA
@@ -103,7 +102,6 @@ class CMDUninstall():
         print('Uninstalling Firefox... [channel: {0}]'.format(args.channel))
 
 
-
 class CMDRun():
 
     def __init__(self, subparsers, CHANNELS, DEFAULT_CHANNEL):
@@ -124,4 +122,3 @@ class CMDRun():
         print('launch Firefox... [channel: {0}]'.format(args.channel))
 
         launch_firefox(args.channel)
-
