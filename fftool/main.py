@@ -39,7 +39,7 @@ def main():
     parser.add_argument(
         '-e',
         '--env',
-        help='Developmenent environment to use (ie: dev, stage, prod).'
+        help='Development environment to use (ie: dev, stage, prod).'
     )
 
     parser.add_argument(

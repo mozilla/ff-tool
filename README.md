@@ -37,7 +37,8 @@ functions can wipe out all profiles in your specified directory.
 
 ### Pre-requisites
 
-**NOTE:** ff-tool requires you have Python and virtualenv installed
+**NOTE:** ff-tool requires you have Python and virtualenv installed.
+Windows users must have Cygwin installed.
 
 ### Build
 ```sh
