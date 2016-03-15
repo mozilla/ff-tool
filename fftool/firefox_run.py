@@ -1,8 +1,7 @@
 import os
 
 from firefox_env_handler import IniHandler
-
-from fabric.api import local  # It looks like Fabric may only support Python 2.
+from fabric.api import local
 
 PATH_PROJECT = os.path.abspath('.')
 PATH_TEMP = os.path.join(PATH_PROJECT, '_temp', 'profiles')
@@ -21,4 +20,4 @@ def launch_firefox(profile_path, channel):
     PROFILE_PATH = os.path.join(PATH_TEMP, profile_path)
 
     cmd = "{0} -profile {1}".format(FIREFOX_APP_BIN, PROFILE_PATH)
-    local(cmd)
+    local(cmd, capture=True)

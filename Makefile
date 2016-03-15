@@ -26,6 +26,7 @@ test:
 
 clean:
 	rm -rf venv  *egg*  dist  ./docs/_build  .tox _temp
+	mkdir -p _temp/{browsers,profiles}
 	find . -name '*.pyc' -delete
 	find . -name '__pycache__' -type d -exec rm -fr {} \;
 
