@@ -1,5 +1,7 @@
 # ff-tool
 
+[![Build Status](https://travis-ci.org/rpappalax/ff-tool.svg?branch=master)](https://travis-ci.org/rpappalax/ff-tool)
+
 ## Summary
 
 ff-tool is a Python CLI tool we've created to facilitate browser testing of
@@ -111,6 +113,5 @@ the latest browsers installed.
 * profile_name: none
 
 ```sh
-$ ff -c ALL --no-profile --no-launch
+$ ff -c ALL --install-only
 ```
-
