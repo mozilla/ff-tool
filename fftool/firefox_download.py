@@ -33,15 +33,6 @@ env.load_os_config('configs')
 out = Outlawg()
 
 
-def replace_ext(filename, ext):
-    """
-    Takes a filename, and changes it's extension.
-    """
-    basename = os.path.splitext(filename)[0]
-    args = {"basename": basename, "ext": ext}
-    return "{basename}.{ext}".format(**args)
-
-
 def modification_date(filename):
     return os.path.getmtime(filename)
 
@@ -57,15 +48,16 @@ def download(channel):
 
     download_filename = env.get(channel, 'DOWNLOAD_FILENAME')
     download_path = os.path.join(BASE_DIR, download_filename)
+
+    args = {"channel": channel, "download_path": download_path}
+    print("Downloading {channel} to {download_path}".format(**args))
+
     scraper = FactoryScraper(
         ch_type,
         version=ch_version,
         branch=ch_branch,
         destination=download_path
     )
-
-    args = {"channel": channel, "download_path": download_path}
-    print("Downloading {channel} to {download_path}".format(**args))
     scraper.download()
 
     is_recent_file = modification_date(download_path) > SCRIPT_START_TIME
