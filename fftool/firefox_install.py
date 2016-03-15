@@ -18,11 +18,15 @@ def install(channel):
 
     # filename = env.get(channel, 'DOWNLOAD_FILENAME')
     install_dir = env.get(channel, 'PATH_FIREFOX_APP')
+    print(IniHandler.get_os())
 
     if IniHandler.is_linux():
         local('tar -jxf {0} && mv firefox {1}'.format(installer, install_dir))  # NOQA
 
     elif IniHandler.is_windows():
+        # TODO: this needs improvement
+        filename = env.get(channel, 'DOWNLOAD_FILENAME')
+        installer = os.path.join('.', '_temp', 'browsers', filename)
         local('{0} -ms'.format(installer))
 
         if channel == 'beta':

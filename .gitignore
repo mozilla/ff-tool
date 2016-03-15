@@ -6,3 +6,9 @@ venv
 *.egg
 .tox/
 .DS_Store
+
+# cygwin
+Include/
+Lib/
+Scripts/
+pip-selfcheck.json

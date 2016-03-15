@@ -15,7 +15,8 @@ out = Outlawg()
 class FirefoxEnvHandler():
     LINUX = 'linux'
     MAC = 'darwin'
-    WINDOWS = 'cygwin'
+    #WINDOWS = 'cygwin'
+    WINDOWS = 'windows'
 
     def __init__(self):
         pass
