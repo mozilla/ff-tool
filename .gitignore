@@ -1,0 +1,8 @@
+*.sw[op]
+_temp/
+venv
+*.pyc
+*.egg-info/
+*.egg
+.tox/
+.DS_Store
