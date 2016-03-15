@@ -23,10 +23,12 @@ def install(channel):
     if IniHandler.is_linux():
         local('tar -jxf {0} && mv firefox {1}'.format(installer, install_dir))  # NOQA
 
-    elif IniHandler.is_windows():
+    elif IniHandler.get_os() == 'cygwin':
         # TODO: this needs improvement
         filename = env.get(channel, 'DOWNLOAD_FILENAME')
         installer = os.path.join('.', '_temp', 'browsers', filename)
+        print('INSTALLER:' + installer)
+        local('/usr/bin/chmod +x {0}'.format(installer))
         local('{0} -ms'.format(installer))
 
         if channel == 'beta':

@@ -46,6 +46,7 @@ def download(channel):
     ch_version = config.get(channel, 'version')
     ch_branch = config.get(channel, 'branch')
 
+    ch_platform = env.get(channel, 'PLATFORM')
     download_filename = env.get(channel, 'DOWNLOAD_FILENAME')
     download_path = os.path.join(BASE_DIR, download_filename)
 
@@ -56,7 +57,8 @@ def download(channel):
         ch_type,
         version=ch_version,
         branch=ch_branch,
-        destination=download_path
+        destination=download_path,
+        platform=ch_platform
     )
     scraper.download()
 
