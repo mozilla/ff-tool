@@ -11,9 +11,11 @@ directory.
 
 import os
 from tempfile import mkdtemp
-
 from mozprofile import Profile, Preferences
 from outlawg import Outlawg
+from fftool import DIR_TEMP_BROWSERS as BASE_DIR
+from fftool import DIR_TEMP_PROFILES as BASE_PROFILE_DIR
+
 
 try:
     import configparser  # Python 3
@@ -21,7 +23,6 @@ except:
     import ConfigParser as configparser  # Python 2
 
 PATH_PROJECT = os.path.abspath('.')
-BASE_PROFILE_DIR = os.path.join(PATH_PROJECT, '_temp', 'profiles')
 FILE_PREFS = 'prefs.ini'
 
 config = configparser.ConfigParser()

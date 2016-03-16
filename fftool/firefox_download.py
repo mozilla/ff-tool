@@ -11,6 +11,7 @@ import time
 
 from firefox_install import install, get_firefox_version
 from firefox_env_handler import IniHandler
+from fftool import DIR_TEMP_BROWSERS as BASE_DIR
 from mozdownload import FactoryScraper
 from outlawg import Outlawg
 
@@ -20,8 +21,8 @@ except:
     import ConfigParser as configparser  # Python 2
 
 
-BASE_DIR = os.path.join('_temp', 'browsers')
 CONFIG_CHANNELS = os.path.join('configs', 'channels.ini')
+CONFIG_CONSTANTS = os.path.join('configs', 'constants.ini')
 SCRIPT_START_TIME = time.time()
 
 config = configparser.ConfigParser()
