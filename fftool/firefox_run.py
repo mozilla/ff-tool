@@ -19,5 +19,5 @@ def launch_firefox(profile_path, channel):
     FIREFOX_APP_BIN = env.get(channel, 'PATH_FIREFOX_BIN_ENV')
     PROFILE_PATH = os.path.join(PATH_TEMP, profile_path)
 
-    cmd = "{0} -profile {1}".format(FIREFOX_APP_BIN, PROFILE_PATH)
+    cmd = '{0} -profile "{1}"'.format(FIREFOX_APP_BIN, PROFILE_PATH)
     local(cmd, capture=True)

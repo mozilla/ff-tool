@@ -45,8 +45,10 @@ def download(channel):
     ch_type = config.get(channel, 'type')
     ch_version = config.get(channel, 'version')
     ch_branch = config.get(channel, 'branch')
-
+    # PLATFORM is uppercased here since the platform comes from the OS-specific
+    # config files, whereas the other flags generically come from channels.ini.
     ch_platform = env.get(channel, 'PLATFORM')
+
     download_filename = env.get(channel, 'DOWNLOAD_FILENAME')
     download_path = os.path.join(BASE_DIR, download_filename)
 

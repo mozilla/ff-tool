@@ -68,8 +68,13 @@ def create_mozprofile(profile_dir, application=None, test_type=None, env=None):
             out.header(msg.format(full_profile_dir), 'XL', '-')
 
     prefs = Preferences()
+
     for path in prefs_paths(application, test_type):
         prefs.add_file(path)
+
+    # Add the `fftool.profile.name` pref so we can go to about:config and see
+    # what our current profile is.
+    prefs.add([("fftool.profile.name", full_profile_dir)])
 
     profile = Profile(profile=full_profile_dir, restore=False, preferences=prefs())
 
