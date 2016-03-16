@@ -4,7 +4,20 @@ from firefox_env_handler import IniHandler
 from fabric.api import local
 
 import os
+import shutil
 import sys
+
+
+def clean_folder(path):
+    """
+    Recursively delete the specified path.
+    """
+    if os.path.isdir(path):
+        print(('Deleting {0}'.format(path)))
+        shutil.rmtree(path)
+
+    else:
+        print(('{0} is not a directory'.format(path)))
 
 
 class FirefoxUninstall(object):
@@ -48,7 +61,7 @@ class FirefoxUninstall(object):
 
             # Otherwise just rimraf the Firefox folder.
             else:
-                IniHandler.clean_folder(path_firefox_app, False)
+                clean_folder(path_firefox_app, False)
 
         else:
             print(("[%s] was cached, skipping uninstall." % (channel)))

@@ -3,7 +3,6 @@
 import os
 import platform
 import re
-import shutil
 import sys
 import configparser
 
@@ -13,10 +12,6 @@ out = Outlawg()
 
 
 class FirefoxEnvHandler():
-    LINUX = 'linux'
-    MAC = 'darwin'
-    WINDOWS = 'cygwin'
-
     def __init__(self):
         pass
 
@@ -26,21 +21,26 @@ class FirefoxEnvHandler():
         Do our best to determine the user's current operating system.
         """
         system = platform.system().lower()
-        return re.split('[-_]', system, maxsplit=1).pop(0)
+        system = re.split('[-_]', system, maxsplit=1).pop(0)
+
+        if system == "cygwin":
+            return "windows"
+
+        return system
 
     @classmethod
     def is_linux(cls):
         """
         Am I running on Linux?
         """
-        return cls.get_os() == cls.LINUX
+        return cls.get_os() == "linux"
 
     @classmethod
     def is_mac(cls):
         """
         Am I running on Mac/Darwin?
         """
-        return cls.get_os() == cls.MAC
+        return cls.get_os() == "darwin"
 
     @classmethod
     def is_other(cls):
@@ -54,19 +54,7 @@ class FirefoxEnvHandler():
         """
         Am I running on Windows/Cygwin?
         """
-        return cls.get_os() == cls.WINDOWS
-
-    @staticmethod
-    def clean_folder(path, foot_gun=True):
-        """
-        Recursively delete the specified path.
-        """
-        if os.path.isdir(path):
-            print(('Deleting {0}'.format(path)))
-            shutil.rmtree(path)
-
-        else:
-            print(('{0} is not a directory'.format(path)))
+        return cls.get_os() == "windows"
 
 
 class IniHandler(FirefoxEnvHandler):

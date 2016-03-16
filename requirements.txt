@@ -4,4 +4,4 @@ mozprofile==0.28
 tox==2.3.1
 flake8==2.5.4
 outlawg==0.0.4
-configparser==3.3.0.post2
+configparser

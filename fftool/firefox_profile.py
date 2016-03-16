@@ -11,9 +11,11 @@ directory.
 
 import os
 from tempfile import mkdtemp
-
 from mozprofile import Profile, Preferences
 from outlawg import Outlawg
+from fftool import DIR_TEMP_BROWSERS as BASE_DIR
+from fftool import DIR_TEMP_PROFILES as BASE_PROFILE_DIR
+
 
 try:
     import configparser  # Python 3
@@ -21,7 +23,6 @@ except:
     import ConfigParser as configparser  # Python 2
 
 PATH_PROJECT = os.path.abspath('.')
-BASE_PROFILE_DIR = os.path.join(PATH_PROJECT, '_temp', 'profiles')
 FILE_PREFS = 'prefs.ini'
 
 config = configparser.ConfigParser()
@@ -68,8 +69,13 @@ def create_mozprofile(profile_dir, application=None, test_type=None, env=None):
             out.header(msg.format(full_profile_dir), 'XL', '-')
 
     prefs = Preferences()
+
     for path in prefs_paths(application, test_type):
         prefs.add_file(path)
+
+    # Add the `fftool.profile.name` pref so we can go to about:config and see
+    # what our current profile is.
+    prefs.add([("fftool.profile.name", full_profile_dir)])
 
     profile = Profile(profile=full_profile_dir, restore=False, preferences=prefs())
 
