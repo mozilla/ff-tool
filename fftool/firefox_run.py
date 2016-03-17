@@ -17,8 +17,5 @@ def launch_firefox(profile_path, channel):
     PROFILE_PATH = os.path.join(BASE_PROFILE_DIR, profile_path)
 
     print("Launching Firefox {0} with profile: {1}".format(channel, profile_path))
-    print(FIREFOX_APP_BIN)
-    print(PROFILE_PATH)
     cmd = '"{0}" -profile "{1}"'.format(FIREFOX_APP_BIN, PROFILE_PATH)
-    print(cmd)
     output = Popen(cmd, stdout=PIPE, shell=True)
