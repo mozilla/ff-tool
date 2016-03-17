@@ -9,9 +9,8 @@ Module to download OS-specific versions of Firefox:
 import os
 import time
 
+from fftool import DIR_TEMP_BROWSERS as BASE_DIR, OS_CONFIG as env
 from firefox_install import install, get_firefox_version
-from firefox_env_handler import IniHandler
-from fftool import DIR_TEMP_BROWSERS as BASE_DIR
 from mozdownload import FactoryScraper
 from outlawg import Outlawg
 
@@ -22,14 +21,10 @@ except:
 
 
 CONFIG_CHANNELS = os.path.join('configs', 'channels.ini')
-CONFIG_CONSTANTS = os.path.join('configs', 'constants.ini')
 SCRIPT_START_TIME = time.time()
 
 config = configparser.ConfigParser()
 config.read(CONFIG_CHANNELS)
-
-env = IniHandler()
-env.load_os_config('configs')
 
 out = Outlawg()
 

@@ -1,11 +1,6 @@
 from argparse import ArgumentParser
 
-CHANNELS = ['release',
-            'beta',
-            'aurora',
-            'nightly',
-            'ALL']
-DEFAULT_CHANNEL = 'nightly'
+from fftool import CHANNELS, DEFAULT_CHANNEL
 
 
 def ff_cli():
