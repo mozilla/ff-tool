@@ -24,7 +24,6 @@ setup(name='ff-tool',
                    'Programming Language :: Python',
                    'Programming Language :: Python :: 2',
                    'Programming Language :: Python :: 2.7'
-                   'Programming Language :: Python :: 3.4'
                    ],
       keywords='[firefox, test, pref, profile, download, install]',
       author='Johnny Quest',
