@@ -45,16 +45,13 @@ def install(channel):
         firefox_version = get_firefox_version(channel)
     except:
         print("YOU FAIL")
+        exit()
 
     out.header("Installed {0} ({1})".format(firefox_version, channel))
 
 
 def get_firefox_version(channel):
     path_firefox_bin = env.get(channel, "PATH_FIREFOX_BIN_ENV")
-    # PATH_FIREFOX_BIN_ENV = 'C:/Program Files/Nightly/firefox.exe'
-    # PATH_FIREFOX_BIN_ENV = '/cygdrive/c/Program\ Files/Nightly/firefox.exe'
-    # path_firefox_bin = env.get(channel, "PATH_FIREFOX_BIN_ENV")
-    # path_firefox_bin = PATH_FIREFOX_BIN_ENV
     cmd = '{0} --version'.format(path_firefox_bin)
     output = Popen(cmd, stdout=PIPE, shell=True)
     return output.stdout.read().strip()
