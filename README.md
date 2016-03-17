@@ -41,9 +41,11 @@ functions can wipe out all profiles in your specified directory.
 
 **NOTE:** ff-tool requires you have Python 2.7 (not Python 3.x) and virtualenv installed.
 Windows users must have Cygwin installed. If using Cygwin, you must run it as administrator.
-1. right click on c:\cygwin64\cygwin.bat
-2. run as administrator
-NOTE: you will also need to run the Cygwin setup file to install a number of modules including: gcc, make, curl, pycrypto, python2, python-dev, etc.
+
+1. Right click on c:\cygwin64\cygwin.bat
+2. Run as administrator
+
+**NOTE:** You will also need to run the Cygwin setup file to install a number of modules including: gcc, make, curl, pycrypto, python2, python-dev, etc.
 
 ### Build
 ```sh
