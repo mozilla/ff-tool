@@ -4,7 +4,7 @@ import os
 import platform
 import re
 import sys
-import configparser
+import ConfigParser as configparser  # Python 2
 
 from outlawg import Outlawg
 

@@ -14,10 +14,7 @@ from firefox_install import install, get_firefox_version
 from mozdownload import FactoryScraper
 from outlawg import Outlawg
 
-try:
-    import configparser  # Python 3
-except:
-    import ConfigParser as configparser  # Python 2
+import ConfigParser as configparser  # Python 2
 
 
 CONFIG_CHANNELS = os.path.join('configs', 'channels.ini')
