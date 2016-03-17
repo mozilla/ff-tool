@@ -45,7 +45,8 @@ def prefs_paths(application, test_type, env='stage'):
                 valid_paths.append(path_app)
 
         if test_type:
-            path_app_test_type = os.path.join(path_app_dir, test_type, FILE_PREFS)
+            path_app_test_type = os.path.join(
+                path_app_dir, test_type, FILE_PREFS)
             if os.path.exists(path_app_test_type):
                 config.read(path_app_test_type)
                 if config.has_section(env):
@@ -63,7 +64,11 @@ def create_mozprofile(profile_dir, application=None, test_type=None, env=None):
         os.mkdir(BASE_PROFILE_DIR)
 
     if not profile_dir:
-        full_profile_dir = mkdtemp(dir=BASE_PROFILE_DIR, prefix="fftool.", suffix="")
+        full_profile_dir = mkdtemp(
+            dir=BASE_PROFILE_DIR,
+            prefix="fftool.",
+            suffix=""
+        )
 
     else:
         full_profile_dir = os.path.join(BASE_PROFILE_DIR, profile_dir)
@@ -81,7 +86,8 @@ def create_mozprofile(profile_dir, application=None, test_type=None, env=None):
     # what our current profile is.
     prefs.add([("fftool.profile.name", full_profile_dir)])
 
-    profile = Profile(profile=full_profile_dir, restore=False, preferences=prefs())
+    profile = Profile(
+        profile=full_profile_dir, restore=False, preferences=prefs())
 
     # TODO: Return the path to the profile, or the profile object?
     return profile.profile  # this is the path to the created profile

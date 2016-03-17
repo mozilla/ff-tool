@@ -48,13 +48,15 @@ def ff_cli():
     parser.add_argument(
         '--no-profile',
         action='store_true',
-        help="Whether to create a profile. This is used for the daily refresh job."
+        help="Whether to create a profile. This is used for the daily \
+              refresh job."
     )
 
     parser.add_argument(
         '--install-only',
         action='store_true',
-        help="Whether or not to just download/install Firefox version(s), or also create a profile and launch a browser."
+        help="Whether or not to just download/install Firefox version(s), \
+              or also create a profile and launch a browser."
     )
 
     return parser.parse_args()

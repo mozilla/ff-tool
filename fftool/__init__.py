@@ -1,7 +1,8 @@
-__version__ = '0.0.1'
-
 import os
 from firefox_env_handler import IniHandler
+
+__version__ = '0.0.1'
+
 
 CHANNELS = ['release',
             'beta',

@@ -56,6 +56,7 @@ def get_firefox_version(channel):
     output = Popen(cmd, stdout=PIPE, shell=True)
     return output.stdout.read().strip()
 
+
 def install_all():
     for channel in env.sections():
         install(channel)
