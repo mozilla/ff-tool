@@ -55,11 +55,9 @@ def get_firefox_version(channel):
     # PATH_FIREFOX_BIN_ENV = '/cygdrive/c/Program\ Files/Nightly/firefox.exe'
     # path_firefox_bin = env.get(channel, "PATH_FIREFOX_BIN_ENV")
     # path_firefox_bin = PATH_FIREFOX_BIN_ENV
-    # cmd = "{0} --version".format(path_firefox_bin)
-    output = Popen([path_firefox_bin, "--version"], stdout=PIPE, shell=True)
+    cmd = '{0} --version'.format(path_firefox_bin)
+    output = Popen(cmd, stdout=PIPE, shell=True)
     return output.stdout.read().strip()
-    # return local(cmd, capture=True)
-
 
 def install_all():
     for channel in env.sections():
