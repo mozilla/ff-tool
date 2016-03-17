@@ -57,6 +57,11 @@ def prefs_paths(application, test_type, env='stage'):
 
 
 def create_mozprofile(profile_dir, application=None, test_type=None, env=None):
+    # Ensure that the base `_temp/profiles/` directory exists before trying to
+    # create a nested directory.
+    if not os.path.exists(BASE_PROFILE_DIR):
+        os.mkdir(BASE_PROFILE_DIR)
+
     if not profile_dir:
         full_profile_dir = mkdtemp(dir=BASE_PROFILE_DIR, prefix="fftool.", suffix="")
 
@@ -78,4 +83,5 @@ def create_mozprofile(profile_dir, application=None, test_type=None, env=None):
 
     profile = Profile(profile=full_profile_dir, restore=False, preferences=prefs())
 
+    # TODO: Return the path to the profile, or the profile object?
     return profile.profile  # this is the path to the created profile
