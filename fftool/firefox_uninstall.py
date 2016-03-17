@@ -8,7 +8,7 @@ import shutil
 import sys
 
 
-def clean_folder(path):
+def rimraf(path):
     """
     Recursively delete the specified path.
     """
@@ -51,6 +51,7 @@ class FirefoxUninstall(object):
 
         if force or not was_cached:
             path_firefox_app = self.config.get(channel, "PATH_FIREFOX_APP")
+
         if not os.path.isdir(path_firefox_app):
             print(('Firefox not found: {0}'.format(path_firefox_app)))
             return
@@ -59,9 +60,9 @@ class FirefoxUninstall(object):
             if self.config.is_windows():
                 local("\"{0}/uninstall/helper.exe\" -ms".format(path_firefox_app))  # NOQA
 
-            # Otherwise just rimraf the Firefox folder.
+            # Otherwise just `rm -rf` the Firefox folder.
             else:
-                clean_folder(path_firefox_app, False)
+                rimraf(path_firefox_app, False)
 
         else:
             print(("[%s] was cached, skipping uninstall." % (channel)))

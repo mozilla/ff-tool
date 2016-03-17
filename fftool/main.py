@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
+from fftool import DEFAULT_CHANNEL
 from ff_cli import ff_cli
-
 from firefox_download import download
 from firefox_profile import create_mozprofile
 from firefox_run import launch_firefox
@@ -28,6 +28,11 @@ def main():
         )
 
     # LAUNCH
+    # If we downloaded "ALL" browsers/channels, override the specified channel
+    # with the default channel so we only launch one browser.
+    if options.channel.upper() == 'ALL':
+        options.channel = DEFAULT_CHANNEL
+
     if not options.no_launch:
         launch_firefox(profile_path, channel=options.channel)
 

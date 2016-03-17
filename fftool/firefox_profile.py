@@ -13,7 +13,6 @@ import os
 from tempfile import mkdtemp
 from mozprofile import Profile, Preferences
 from outlawg import Outlawg
-from fftool import DIR_TEMP_BROWSERS as BASE_DIR
 from fftool import DIR_TEMP_PROFILES as BASE_PROFILE_DIR
 
 

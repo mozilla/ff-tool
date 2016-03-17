@@ -4,11 +4,7 @@ import os
 from firefox_env_handler import IniHandler
 from fabric.api import local
 from outlawg import Outlawg
-from fftool import DIR_TEMP_BROWSERS as BASE_DIR
-
-
-env = IniHandler()
-env.load_os_config('configs')
+from fftool import DIR_TEMP_BROWSERS as BASE_DIR, OS_CONFIG as env
 
 out = Outlawg()
 
