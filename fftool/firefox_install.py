@@ -5,6 +5,7 @@ from firefox_env_handler import IniHandler
 from fabric.api import local
 from outlawg import Outlawg
 from fftool import DIR_TEMP_BROWSERS as BASE_DIR, OS_CONFIG as env
+from subprocess import Popen, PIPE
 
 out = Outlawg()
 
@@ -23,12 +24,10 @@ def install(channel):
 
     elif IniHandler.is_windows():
         # TODO: this needs improvement
-        print("Hello windows user")
         local('chmod +x {0}'.format(installer))
         local('{0} -ms'.format(installer))
 
         if channel == 'beta':
-            print("using beta, eh? thats cool.")
             # Since Beta and General Release channels install
             # to the same directory, install Beta first then
             # rename the directory.
@@ -45,15 +44,21 @@ def install(channel):
     try:
         firefox_version = get_firefox_version(channel)
     except:
-        pass
+        print("YOU FAIL")
 
     out.header("Installed {0} ({1})".format(firefox_version, channel))
 
 
 def get_firefox_version(channel):
     path_firefox_bin = env.get(channel, "PATH_FIREFOX_BIN_ENV")
-    cmd = "{0} --version".format(path_firefox_bin)
-    return local(cmd, capture=True)
+    # PATH_FIREFOX_BIN_ENV = 'C:/Program Files/Nightly/firefox.exe'
+    # PATH_FIREFOX_BIN_ENV = '/cygdrive/c/Program\ Files/Nightly/firefox.exe'
+    # path_firefox_bin = env.get(channel, "PATH_FIREFOX_BIN_ENV")
+    # path_firefox_bin = PATH_FIREFOX_BIN_ENV
+    # cmd = "{0} --version".format(path_firefox_bin)
+    output = Popen([path_firefox_bin, "--version"], stdout=PIPE, shell=True)
+    return output.stdout.read().strip()
+    # return local(cmd, capture=True)
 
 
 def install_all():
