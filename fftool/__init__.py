@@ -1,0 +1,20 @@
+import os
+from firefox_env_handler import IniHandler
+
+__version__ = '0.0.1'
+
+
+CHANNELS = ['release',
+            'beta',
+            'aurora',
+            'nightly',
+            'ALL']
+
+DEFAULT_CHANNEL = 'nightly'
+
+DIR_TEMP = '_temp'
+DIR_TEMP_BROWSERS = os.path.join(DIR_TEMP, 'browsers')
+DIR_TEMP_PROFILES = os.path.join(DIR_TEMP, 'profiles')
+
+OS_CONFIG = IniHandler()
+OS_CONFIG.load_os_config('configs')
