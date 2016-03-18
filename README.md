@@ -93,7 +93,41 @@ with that name.
 $ ff -p my_cool_profile1
 ```
 
+# Custom Browser Prefs
+
+Firefox provides the ability for a user to change preferences in about:config.
+For testing and automation this can be cumbersome as it usually involves many 
+small steps.
+
+As alternative, ff-tool provides a means for loading these prefs from a root 
+directory you specify via an environment variable.
+
+Example:
+```sh
+$ export PREFS_ROOT_DIR = '../services-test'
+```
+
+Custom prefs must be stored in the following directory/file structure:
+<prefs root dir>/<product name>/<test type>
+
+You must also include a prefs.ini file which specifies the environment(s)
+in which each pref set is used.
+
+Example prefs.ini:
+```sh
+[DEFAULT]
+pref_key = pref_value
+
+[dev]
+pref_key = pref_value
+
+[stage]
+pref_key = pref_value
+```
+
 # Cloud Services (only)
+
+
 ## Launch browser, clean profile, specify services-specific options...
 
 * version: Beta
