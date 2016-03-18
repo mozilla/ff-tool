@@ -4,11 +4,9 @@ env:
   global:
     - TOX_ENV=py27
     - TOX_ENV=flake8
-    - REPO="rpappalax/ff-tool"
-    - CI_HOME=`pwd`/$REPO
 install:
-    - pip install -r requirements.txt
     - pip install tox
+    - pip install -r requirements.txt
 
 script:
     - tox -e $TOX_ENV
