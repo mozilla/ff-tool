@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 
 import os
+from fftool import local
 from firefox_env_handler import IniHandler
-from fabric.api import local
 from outlawg import Outlawg
 from fftool import DIR_TEMP_BROWSERS as BASE_DIR, OS_CONFIG as env
-from subprocess import Popen, PIPE
 
 out = Outlawg()
 
@@ -53,8 +52,7 @@ def install(channel):
 def get_firefox_version(channel):
     path_firefox_bin = env.get(channel, "PATH_FIREFOX_BIN_ENV")
     cmd = '{0} --version'.format(path_firefox_bin)
-    output = Popen(cmd, stdout=PIPE, shell=True)
-    return output.stdout.read().strip()
+    return local(cmd)
 
 
 def install_all():
