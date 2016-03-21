@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
-from firefox_env_handler import IniHandler
-from fabric.api import local
-
 import os
 import shutil
 import sys
+
+from firefox_env_handler import IniHandler
+from fftool import local
 
 
 def rimraf(path):

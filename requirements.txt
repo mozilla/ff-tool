@@ -1,7 +1,5 @@
-Fabric3
 mozdownload==1.20.2
 mozprofile==0.28
 tox
 flake8==2.5.4
 outlawg==0.0.4
-configparser
