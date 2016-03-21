@@ -20,6 +20,7 @@ DIR_TEMP_PROFILES = os.path.join(DIR_TEMP, 'profiles')
 OS_CONFIG = IniHandler()
 OS_CONFIG.load_os_config('configs')
 
+
 def local(cmd):
     output = Popen(cmd, stdout=PIPE, shell=True)
     return output.stdout.read().strip()
