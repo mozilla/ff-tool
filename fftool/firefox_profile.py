@@ -86,5 +86,7 @@ def create_mozprofile(profile_dir, application=None, test_type=None, env=None):
     profile = Profile(
         profile=full_profile_dir, restore=False, preferences=prefs())
 
-    # TODO: Return the path to the profile, or the profile object?
-    return profile.profile  # this is the path to the created profile
+    out.header("Launching browser with the following user configs:")
+    print(profile.summary())
+
+    return profile  # this is the path to the created profile
