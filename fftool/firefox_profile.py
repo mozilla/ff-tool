@@ -13,15 +13,12 @@ import os
 from tempfile import mkdtemp
 from mozprofile import Profile, Preferences
 from outlawg import Outlawg
-from fftool import DIR_TEMP_PROFILES as BASE_PROFILE_DIR
+from fftool import DIR_TEMP_PROFILES as BASE_PROFILE_DIR, PATH_PREFS_ROOT
+import ConfigParser as configparser  # Python 2
 
 
-try:
-    import configparser  # Python 3
-except:
-    import ConfigParser as configparser  # Python 2
-
-PATH_PROJECT = os.path.abspath('.')
+PATH_PROJECT = PATH_PREFS_ROOT
+PATH_PREFS_GLOBAL = os.path.abspath('.')
 FILE_PREFS = 'prefs.ini'
 
 config = configparser.ConfigParser()
@@ -29,7 +26,7 @@ out = Outlawg()
 
 
 def prefs_paths(application, test_type, env='stage'):
-    path_global = os.path.join(PATH_PROJECT, 'configs', FILE_PREFS)
+    path_global = os.path.join(PATH_PREFS_GLOBAL, 'configs', FILE_PREFS)
     valid_paths = [path_global]
 
     if application:
@@ -79,7 +76,7 @@ def create_mozprofile(profile_dir, application=None, test_type=None, env=None):
 
     prefs = Preferences()
 
-    for path in prefs_paths(application, test_type):
+    for path in prefs_paths(application, test_type, env):
         prefs.add_file(path)
 
     # Add the `fftool.profile.name` pref so we can go to about:config and see
