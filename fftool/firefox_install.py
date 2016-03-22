@@ -1,12 +1,18 @@
 #!/usr/bin/env python
 
 import os
+import stat
 from fftool import local
 from firefox_env_handler import IniHandler
 from outlawg import Outlawg
 from fftool import DIR_TEMP_BROWSERS as BASE_DIR, OS_CONFIG as env
 
 out = Outlawg()
+
+
+def chmodx(path):
+    mode = os.stat(path).st_mode
+    os.chmod(path, mode | stat.S_IEXEC)
 
 
 def install(channel):
@@ -22,8 +28,7 @@ def install(channel):
         local('tar -jxf {0} && mv firefox {1}'.format(installer, install_dir))  # NOQA
 
     elif IniHandler.is_windows():
-        # TODO: this needs improvement
-        local('chmod +x {0}'.format(installer))
+        chmodx(installer)
         local('{0} -ms'.format(installer))
 
         if channel == 'beta':
