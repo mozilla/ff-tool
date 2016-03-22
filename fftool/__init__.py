@@ -20,6 +20,8 @@ DIR_TEMP_PROFILES = os.path.join(DIR_TEMP, 'profiles')
 OS_CONFIG = IniHandler()
 OS_CONFIG.load_os_config('configs')
 
+PATH_PREFS_ROOT = os.environ.get('PATH_PREFS_ROOT')
+
 
 def local(cmd):
     output = Popen(cmd, stdout=PIPE, shell=True)

@@ -1,14 +1,26 @@
 #!/usr/bin/env python
 
-from fftool import DEFAULT_CHANNEL
+from fftool import DEFAULT_CHANNEL, PATH_PREFS_ROOT
 from ff_cli import ff_cli
 from firefox_download import download
 from firefox_profile import create_mozprofile
 from firefox_run import launch_firefox
+from outlawg import Outlawg
+
+out = Outlawg()
 
 
 def main():
     options = ff_cli()
+
+    # If the user is trying to create application specific configs but didn't
+    # specify their `$PATH_PREFS_ROOT` environment variable, exit early.
+    if options.app and not PATH_PREFS_ROOT:
+        out.header("ERROR")
+        print("Missing path to $PATH_PREFS_ROOT directory.")
+        print("Please set the `PATH_PREFS_ROOT` environment variable and " +
+              "try again.")
+        exit()
 
     # DOWNLOAD/INSTALL
     download(options.channel)
@@ -34,7 +46,7 @@ def main():
         options.channel = DEFAULT_CHANNEL
 
     if not options.no_launch:
-        launch_firefox(profile_path, channel=options.channel)
+        launch_firefox(profile_path.profile, channel=options.channel)
 
 
 if __name__ == '__main__':
