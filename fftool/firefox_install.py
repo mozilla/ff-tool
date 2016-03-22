@@ -2,12 +2,9 @@
 
 import os
 import stat
-from fftool import local
+from fftool import local, Log
 from firefox_env_handler import IniHandler
-from outlawg import Outlawg
 from fftool import DIR_TEMP_BROWSERS as BASE_DIR, OS_CONFIG as env
-
-out = Outlawg()
 
 
 def chmodx(path):
@@ -35,8 +32,8 @@ def install(channel):
             # Since Beta and General Release channels install
             # to the same directory, install Beta first then
             # rename the directory.
-            gr_install_dir = env.config.get('release', 'PATH_FIREFOX_APP')
-            local('mv {0} {1}'.format(gr_install_dir, install_dir))
+            release_install_dir = env.config.get('release', 'PATH_FIREFOX_APP')
+            local('mv {0} {1}'.format(release_install_dir, install_dir))
 
     elif IniHandler.is_mac():
         from hdiutil import extract_dmg
@@ -51,7 +48,7 @@ def install(channel):
         print("YOU FAIL")
         exit()
 
-    out.header("Installed {0} ({1})".format(firefox_version, channel))
+    Log.header("Installed {0} ({1})".format(firefox_version, channel))
 
 
 def get_firefox_version(channel):

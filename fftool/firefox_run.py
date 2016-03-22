@@ -1,6 +1,6 @@
-from subprocess import Popen, PIPE
 from fftool import (
-    OS_CONFIG as env
+    OS_CONFIG as env,
+    local
 )
 
 
@@ -16,5 +16,6 @@ def launch_firefox(profile_path, channel):
         channel,
         profile_path)
     )
+
     cmd = '"{0}" -profile "{1}"'.format(FIREFOX_APP_BIN, profile_path)
-    Popen(cmd, stdout=PIPE, shell=True)
+    local(cmd)
