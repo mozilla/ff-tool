@@ -17,7 +17,6 @@ from fftool import DIR_TEMP_PROFILES as BASE_PROFILE_DIR, PATH_PREFS_ROOT
 import ConfigParser as configparser  # Python 2
 
 
-PATH_PROJECT = PATH_PREFS_ROOT
 PATH_PREFS_GLOBAL = os.path.abspath('.')
 FILE_PREFS = 'prefs.ini'
 
@@ -30,7 +29,7 @@ def prefs_paths(application, test_type, env='stage'):
     valid_paths = [path_global]
 
     if application:
-        path_app_dir = os.path.join(PATH_PROJECT, application)
+        path_app_dir = os.path.join(PATH_PREFS_ROOT, application)
 
         path_app = os.path.join(path_app_dir, FILE_PREFS)
         if os.path.exists(path_app):
