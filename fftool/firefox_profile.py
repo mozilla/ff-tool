@@ -12,8 +12,7 @@ directory.
 import os
 from tempfile import mkdtemp
 from mozprofile import Profile, Preferences
-from outlawg import Outlawg
-from fftool import DIR_TEMP_PROFILES as BASE_PROFILE_DIR, PATH_PREFS_ROOT
+from fftool import DIR_TEMP_PROFILES as BASE_PROFILE_DIR, PATH_PREFS_ROOT, Log
 import ConfigParser as configparser  # Python 2
 
 
@@ -21,7 +20,6 @@ PATH_PREFS_GLOBAL = os.path.abspath('.')
 FILE_PREFS = 'prefs.ini'
 
 config = configparser.ConfigParser()
-out = Outlawg()
 
 
 def prefs_paths(application, test_type, env='stage'):
@@ -71,7 +69,7 @@ def create_mozprofile(profile_dir, application=None, test_type=None, env=None):
 
         if os.path.exists(full_profile_dir):
             msg = "WARNING: Profile '{0}' already exists. Merging configs."
-            out.header(msg.format(full_profile_dir), 'XL', '-')
+            Log.header(msg.format(full_profile_dir), 'XL', '-')
 
     prefs = Preferences()
 
@@ -85,7 +83,7 @@ def create_mozprofile(profile_dir, application=None, test_type=None, env=None):
     profile = Profile(
         profile=full_profile_dir, restore=False, preferences=prefs())
 
-    out.header("Launching browser with the following user configs:")
+    Log.header("Launching browser with the following user configs:")
     print(profile.summary())
 
     # this is the path to the created profile

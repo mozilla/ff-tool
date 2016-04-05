@@ -6,24 +6,19 @@ Module to download OS-specific versions of Firefox:
 4. Nightly (nightly)
 """
 
+import ConfigParser as configparser  # Python 2
 import os
 import time
 
-from fftool import DIR_TEMP_BROWSERS as BASE_DIR, OS_CONFIG as env
+from fftool import DIR_TEMP_BROWSERS as BASE_DIR, OS_CONFIG as env, Log
 from firefox_install import install, get_firefox_version
 from mozdownload import FactoryScraper
-from outlawg import Outlawg
-
-import ConfigParser as configparser  # Python 2
-
 
 CONFIG_CHANNELS = os.path.join('configs', 'channels.ini')
 SCRIPT_START_TIME = time.time()
 
 config = configparser.ConfigParser()
 config.read(CONFIG_CHANNELS)
-
-out = Outlawg()
 
 
 def modification_date(filename):
@@ -69,7 +64,7 @@ def download(channel):
         firefox_version = get_firefox_version(channel)
         args = {"channel": channel, "version": firefox_version}
         msg = "You have the latest version of {channel} installed ({version})."
-        out.header(msg.format(**args))
+        Log.header(msg.format(**args))
 
 
 def download_all():
