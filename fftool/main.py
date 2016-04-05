@@ -47,7 +47,6 @@ def main():
         options.channel = DEFAULT_CHANNEL
 
     if not options.no_launch:
-        #launch_firefox(profile_path.profile, channel=options.channel)
         launch_firefox(profile_path, channel=options.channel)
 
 
