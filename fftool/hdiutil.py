@@ -5,9 +5,9 @@ NOTE: THIS IS AN OSX SPECIFIC FILE, SPECIFICALLY FOR MOUNTING DMG FILES.
 
 import os
 import shutil
-from fabric.api import local
+from fftool import local
 
-cmd_hdiutil = local("which hdiutil", capture=True)
+cmd_hdiutil = local("which hdiutil")
 
 
 def attach(dmg_path, mountpoint):
@@ -17,7 +17,7 @@ def attach(dmg_path, mountpoint):
         "mountpoint": mountpoint
     }
     cmd = "{hdiutil} attach {dmg_path} -mountpoint {mountpoint}".format(**args)
-    local(cmd, capture=True)
+    local(cmd)
 
 
 def detach(mountpoint):
@@ -26,7 +26,7 @@ def detach(mountpoint):
         "mountpoint": mountpoint
     }
     cmd = "{hdiutil} detach {mountpoint}".format(**args)
-    local(cmd, capture=True)
+    local(cmd)
 
 
 def move_app(src, dest):

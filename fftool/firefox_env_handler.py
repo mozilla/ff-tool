@@ -5,10 +5,9 @@ import platform
 import re
 import sys
 import ConfigParser as configparser  # Python 2
-
 from outlawg import Outlawg
 
-out = Outlawg()
+Log = Outlawg()
 
 
 class FirefoxEnvHandler():
@@ -72,7 +71,7 @@ class IniHandler(FirefoxEnvHandler):
         """
         Load an INI config based on the specified `ini_path`.
         """
-        out.header('LOADING {0}'.format(ini_path))
+        Log.header('LOADING {0}'.format(ini_path))
 
         # Make sure the specified config file exists, fail hard if missing.
         if not os.path.isfile(ini_path):
@@ -94,7 +93,7 @@ class IniHandler(FirefoxEnvHandler):
         Generate and save the output environment file so we can source it from
         something like .bashrc or .bashprofile.
         """
-        out.header('CREATING ENV FILE ({0})'.format(out_file))
+        Log.header('CREATING ENV FILE ({0})'.format(out_file))
 
         env_fmt = "export %s=\"%s\""
         env_vars = []

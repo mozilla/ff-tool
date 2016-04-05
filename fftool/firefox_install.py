@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 
 import os
+import stat
+from fftool import local, Log
 from firefox_env_handler import IniHandler
-from fabric.api import local
-from outlawg import Outlawg
 from fftool import DIR_TEMP_BROWSERS as BASE_DIR, OS_CONFIG as env
-from subprocess import Popen, PIPE
 
-out = Outlawg()
+
+def chmodx(path):
+    mode = os.stat(path).st_mode
+    os.chmod(path, mode | stat.S_IEXEC)
 
 
 def install(channel):
@@ -23,16 +25,15 @@ def install(channel):
         local('tar -jxf {0} && mv firefox {1}'.format(installer, install_dir))  # NOQA
 
     elif IniHandler.is_windows():
-        # TODO: this needs improvement
-        local('chmod +x {0}'.format(installer))
+        chmodx(installer)
         local('{0} -ms'.format(installer))
 
         if channel == 'beta':
             # Since Beta and General Release channels install
             # to the same directory, install Beta first then
             # rename the directory.
-            gr_install_dir = env.config.get('release', 'PATH_FIREFOX_APP')
-            local('mv {0} {1}'.format(gr_install_dir, install_dir))
+            release_install_dir = env.config.get('release', 'PATH_FIREFOX_APP')
+            local('mv {0} {1}'.format(release_install_dir, install_dir))
 
     elif IniHandler.is_mac():
         from hdiutil import extract_dmg
@@ -47,14 +48,13 @@ def install(channel):
         print("YOU FAIL")
         exit()
 
-    out.header("Installed {0} ({1})".format(firefox_version, channel))
+    Log.header("Installed {0} ({1})".format(firefox_version, channel))
 
 
 def get_firefox_version(channel):
     path_firefox_bin = env.get(channel, "PATH_FIREFOX_BIN_ENV")
     cmd = '{0} --version'.format(path_firefox_bin)
-    output = Popen(cmd, stdout=PIPE, shell=True)
-    return output.stdout.read().strip()
+    return local(cmd)
 
 
 def install_all():

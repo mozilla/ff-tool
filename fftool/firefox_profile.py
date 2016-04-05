@@ -10,30 +10,25 @@ directory.
 """
 
 import os
+import shutil
 from tempfile import mkdtemp
 from mozprofile import Profile, Preferences
-from outlawg import Outlawg
-from fftool import DIR_TEMP_PROFILES as BASE_PROFILE_DIR
+from fftool import DIR_TEMP_PROFILES as BASE_PROFILE_DIR, PATH_PREFS_ROOT, Log
+import ConfigParser as configparser  # Python 2
 
 
-try:
-    import configparser  # Python 3
-except:
-    import ConfigParser as configparser  # Python 2
-
-PATH_PROJECT = os.path.abspath('.')
+PATH_PREFS_GLOBAL = os.path.abspath('.')
 FILE_PREFS = 'prefs.ini'
 
 config = configparser.ConfigParser()
-out = Outlawg()
 
 
 def prefs_paths(application, test_type, env='stage'):
-    path_global = os.path.join(PATH_PROJECT, 'configs', FILE_PREFS)
+    path_global = os.path.join(PATH_PREFS_GLOBAL, 'configs', FILE_PREFS)
     valid_paths = [path_global]
 
     if application:
-        path_app_dir = os.path.join(PATH_PROJECT, application)
+        path_app_dir = os.path.join(PATH_PREFS_ROOT, application)
 
         path_app = os.path.join(path_app_dir, FILE_PREFS)
         if os.path.exists(path_app):
@@ -57,6 +52,10 @@ def prefs_paths(application, test_type, env='stage'):
     return valid_paths
 
 
+def clean_profiles():
+    shutil.rmtree(BASE_PROFILE_DIR)
+
+
 def create_mozprofile(profile_dir, application=None, test_type=None, env=None):
     # Ensure that the base `_temp/profiles/` directory exists before trying to
     # create a nested directory.
@@ -75,11 +74,11 @@ def create_mozprofile(profile_dir, application=None, test_type=None, env=None):
 
         if os.path.exists(full_profile_dir):
             msg = "WARNING: Profile '{0}' already exists. Merging configs."
-            out.header(msg.format(full_profile_dir), 'XL', '-')
+            Log.header(msg.format(full_profile_dir), 'XL', '-')
 
     prefs = Preferences()
 
-    for path in prefs_paths(application, test_type):
+    for path in prefs_paths(application, test_type, env):
         prefs.add_file(path)
 
     # Add the `fftool.profile.name` pref so we can go to about:config and see
@@ -89,5 +88,8 @@ def create_mozprofile(profile_dir, application=None, test_type=None, env=None):
     profile = Profile(
         profile=full_profile_dir, restore=False, preferences=prefs())
 
-    # TODO: Return the path to the profile, or the profile object?
-    return profile.profile  # this is the path to the created profile
+    Log.header("Launching browser with the following user configs:")
+    print(profile.summary())
+
+    # this is the path to the created profile
+    return full_profile_dir
