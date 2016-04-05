@@ -39,7 +39,6 @@ def main():
             env=options.env
         )
 
-
     # LAUNCH
     # If we downloaded "ALL" browsers/channels, override the specified channel
     # with the default channel so we only launch one browser.

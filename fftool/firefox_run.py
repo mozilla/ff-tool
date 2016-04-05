@@ -1,8 +1,5 @@
-import os
-
 from subprocess import Popen, PIPE
 from fftool import (
-    DIR_TEMP_PROFILES as BASE_PROFILE_DIR,
     OS_CONFIG as env
 )
 

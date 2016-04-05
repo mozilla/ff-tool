@@ -88,4 +88,5 @@ def create_mozprofile(profile_dir, application=None, test_type=None, env=None):
     out.header("Launching browser with the following user configs:")
     print(profile.summary())
 
-    return full_profile_dir # this is the path to the created profile
+    # this is the path to the created profile
+    return full_profile_dir
