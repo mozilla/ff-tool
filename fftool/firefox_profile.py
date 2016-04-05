@@ -10,6 +10,7 @@ directory.
 """
 
 import os
+import shutil
 from tempfile import mkdtemp
 from mozprofile import Profile, Preferences
 from outlawg import Outlawg
@@ -51,6 +52,10 @@ def prefs_paths(application, test_type, env='stage'):
                     valid_paths.append(path_app_test_type)
 
     return valid_paths
+
+
+def clean_profiles():
+    shutil.rmtree(BASE_PROFILE_DIR)
 
 
 def create_mozprofile(profile_dir, application=None, test_type=None, env=None):

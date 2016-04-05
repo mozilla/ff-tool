@@ -59,4 +59,11 @@ def ff_cli():
               or also create a profile and launch a browser."
     )
 
+    parser.add_argument(
+        '--clean-profiles',
+        action='store_true',
+        help="Delete all the fftool.* profile directories in the _temp/profiles\
+              directory"
+    )
+
     return parser.parse_args()

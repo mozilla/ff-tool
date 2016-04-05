@@ -3,7 +3,7 @@
 from fftool import DEFAULT_CHANNEL, PATH_PREFS_ROOT
 from ff_cli import ff_cli
 from firefox_download import download
-from firefox_profile import create_mozprofile
+from firefox_profile import create_mozprofile, clean_profiles
 from firefox_run import launch_firefox
 from outlawg import Outlawg
 
@@ -21,6 +21,10 @@ def main():
         print("Please set the `PATH_PREFS_ROOT` environment variable and " +
               "try again.")
         exit()
+
+    if (options.clean_profiles):
+        clean_profiles()
+        return
 
     # DOWNLOAD/INSTALL
     download(options.channel)
