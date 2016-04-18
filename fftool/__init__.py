@@ -23,6 +23,7 @@ OS_CONFIG.load_os_config('configs')
 
 if IniHandler.is_windows():
     DIR_TEMP_PROFILES = os.environ.get('PATH_FIREFOX_PROFILES_ENV')
+    print(DIR_TEMP_PROFILES)
 else:
     DIR_TEMP_PROFILES = os.path.join(DIR_TEMP, 'profiles')
 
