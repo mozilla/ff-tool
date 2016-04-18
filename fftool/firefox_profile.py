@@ -54,6 +54,7 @@ def prefs_paths(application, test_type, env='stage'):
 
 def clean_profiles():
     shutil.rmtree(BASE_PROFILE_DIR)
+    os.remove(os.path.join(BASE_PROFILE_DIR, "..", "profile.ini"))
 
 
 def create_mozprofile(profile_dir, application=None, test_type=None, env=None):
