@@ -53,7 +53,9 @@ def prefs_paths(application, test_type, env='stage'):
 
 
 def clean_profiles():
-    shutil.rmtree(BASE_PROFILE_DIR)
+
+    
+    shutil.rmtree(BASE_PROFILE_DIR, True)
     os.remove(os.path.join(BASE_PROFILE_DIR, "..", "profile.ini"))
 
 
