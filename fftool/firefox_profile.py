@@ -56,7 +56,7 @@ def clean_profiles():
 
     
     shutil.rmtree(BASE_PROFILE_DIR, True)
-    os.remove(os.path.join(BASE_PROFILE_DIR, "..", "profile.ini"))
+    os.remove(os.path.join(BASE_PROFILE_DIR, "..", "profiles.ini"))
 
 
 def create_mozprofile(profile_dir, application=None, test_type=None, env=None):
