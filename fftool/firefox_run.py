@@ -18,5 +18,6 @@ def launch_firefox(profile_path, channel):
     )
 
     #cmd = '"{0}" -profile "{1}"'.format(FIREFOX_APP_BIN, profile_path)
-    cmd = '{0} -profile {1}'.format(FIREFOX_APP_BIN, profile_path)
+    cmd = '\"{0}\" -profile \"{1}\"'.format(FIREFOX_APP_BIN, profile_path)
+    print('CMD: ' + cmd)
     local(cmd)
