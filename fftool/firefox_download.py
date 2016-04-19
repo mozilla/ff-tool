@@ -12,6 +12,7 @@ import time
 
 from fftool import DIR_TEMP_BROWSERS as BASE_DIR, OS_CONFIG as env, Log
 from firefox_install import install, get_firefox_version
+from utils import WinUtils
 from mozdownload import FactoryScraper
 
 CONFIG_CHANNELS = os.path.join('configs', 'channels.ini')
@@ -53,10 +54,13 @@ def download(channel):
     scraper.download()
 
     is_recent_file = modification_date(download_path) > SCRIPT_START_TIME
-    firefox_bin = env.get(channel, 'PATH_FIREFOX_BIN_ENV')
+    firefox_bin = WinUtils.filepath_real(
+        env.get(channel, 'PATH_FIREFOX_BIN_ENV')
+    )
 
     # If the *.dmg file was downloaded recently, or we don't have the *.app
     # file installed, install the current Firefox channel.
+
     if is_recent_file or not os.path.exists(firefox_bin):
         install(channel)
 

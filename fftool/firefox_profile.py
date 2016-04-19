@@ -57,7 +57,7 @@ def clean_profiles():
         os.remove(os.path.join(BASE_PROFILE_DIR, "profiles.ini"))
     except:
         pass
-    profile_dir = os.path.join(BASE_PROFILE_DIR, "Profiles") 
+    profile_dir = os.path.join(BASE_PROFILE_DIR, "Profiles")
     shutil.rmtree(profile_dir, True)
 
 
