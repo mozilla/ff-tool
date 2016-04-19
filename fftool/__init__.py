@@ -21,12 +21,15 @@ DIR_TEMP_BROWSERS = os.path.join(DIR_TEMP, 'browsers')
 OS_CONFIG = IniHandler()
 OS_CONFIG.load_os_config('configs')
 
+"""
 if IniHandler.is_windows():
     #DIR_TEMP_PROFILES = os.environ.get('PATH_FIREFOX_PROFILES') 
     DIR_TEMP_PROFILES = os.path.join(DIR_TEMP, 'profiles')
 else:
     DIR_TEMP_PROFILES = os.path.join(DIR_TEMP, 'profiles')
+"""
 
+DIR_TEMP_PROFILES = os.path.join(DIR_TEMP, 'profiles')
 PATH_PREFS_ROOT = os.environ.get('PATH_PREFS_ROOT')
 
 Log = Outlawg()
