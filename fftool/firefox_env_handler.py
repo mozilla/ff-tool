@@ -95,7 +95,8 @@ class IniHandler(FirefoxEnvHandler):
         """
         Log.header('CREATING ENV FILE ({0})'.format(out_file))
 
-        env_fmt = "export %s=\"%s\""
+        #env_fmt = "export %s=\"%s\""
+        env_fmt = "export %s=\'%s\'"
         env_vars = []
 
         # Generic paths to Sikuli and Firefox profile directories.
