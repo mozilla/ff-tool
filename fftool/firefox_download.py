@@ -54,9 +54,10 @@ def download(channel):
     scraper.download()
 
     is_recent_file = modification_date(download_path) > SCRIPT_START_TIME
-    firefox_bin = WinUtils.filepath_real(
-        env.get(channel, 'PATH_FIREFOX_BIN_ENV')
-    )
+    #firefox_bin = WinUtils.filepath_real(
+    #    env.get(channel, 'PATH_FIREFOX_BIN_ENV')
+    #)
+    firefox_bin = env.get(channel, 'PATH_FIREFOX_BIN_ENV')
 
     # If the *.dmg file was downloaded recently, or we don't have the *.app
     # file installed, install the current Firefox channel.

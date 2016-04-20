@@ -27,9 +27,5 @@ Log = Outlawg()
 
 
 def local(cmd):
-    # we'll correct spaces in Windows paths here
-    #if IniHandler.is_windows():
-    #    cmd = WinUtils.filepath_real(cmd)
-
     output = Popen(cmd, stdout=PIPE, shell=True)
     return output.stdout.read().strip()
