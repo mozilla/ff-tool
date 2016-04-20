@@ -27,14 +27,14 @@ def install(channel):
 
     elif IniHandler.is_windows():
         chmodx(installer)
-        local('{0} -ms'.format(installer))
+        local('"{0}" -ms'.format(installer))
 
         if channel == 'beta':
             # Since Beta and General Release channels install
             # to the same directory, install Beta first then
             # rename the directory.
             release_install_dir = env.config.get('release', 'PATH_FIREFOX_APP')
-            local('mv {0} {1}'.format(release_install_dir, install_dir))
+            local('mv "{0}" "{1}"'.format(release_install_dir, install_dir))
 
     elif IniHandler.is_mac():
         from hdiutil import extract_dmg
