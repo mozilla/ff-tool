@@ -2,11 +2,11 @@
 
 # NOTE:
 # Spaces in Windows file paths cause problems for Popen, Cygwin & Sikuli
-# Use " " char in windows paths to indicate a space (these will be replaced) 
+# Use "~" char in windows paths to indicate a space (these will be replaced) 
 
 [DEFAULT]
 # install paths
-PATH_PROGRAM_FILES = /cygdrive/c/Program Files
+PATH_PROGRAM_FILES = /cygdrive/c/Program~Files
 PATH_FIREFOX_BIN = firefox.exe
 # env vars
 PATH_FIREFOX_BIN_ENV = %(PATH_FIREFOX_APP)s/%(PATH_FIREFOX_BIN)s
@@ -24,16 +24,16 @@ PATH_FIREFOX_APP = %(PATH_PROGRAM_FILES)s/Nightly
 # download configs
 DOWNLOAD_FILENAME = FirefoxDevEdition.exe
 # install configs
-PATH_FIREFOX_APP = %(PATH_PROGRAM_FILES)s/Firefox Developer Edition
+PATH_FIREFOX_APP = %(PATH_PROGRAM_FILES)s/Firefox~Developer~Edition
 
 [beta]
 # download configs
 DOWNLOAD_FILENAME = FirefoxBeta.exe
 # install configs
-PATH_FIREFOX_APP = %(PATH_PROGRAM_FILES)s/Mozilla Firefox Beta
+PATH_FIREFOX_APP = %(PATH_PROGRAM_FILES)s/Mozilla~Firefox~Beta
 
 [release]
 # download configs
 DOWNLOAD_FILENAME = FirefoxRelease.exe
 # install configs
-PATH_FIREFOX_APP = %(PATH_PROGRAM_FILES)s/Mozilla Firefox
+PATH_FIREFOX_APP = %(PATH_PROGRAM_FILES)s/Mozilla~Firefox
