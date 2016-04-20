@@ -2,7 +2,6 @@ import os
 from subprocess import Popen, PIPE
 from firefox_env_handler import IniHandler
 from outlawg import Outlawg
-from utils import WinUtils
 
 
 __version__ = '0.0.1'
