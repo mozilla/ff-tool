@@ -55,9 +55,10 @@ def install(channel):
 
 
 def get_firefox_version(channel):
-    path_firefox_bin = WinUtils.filepath_real(
-        env.get(channel, "PATH_FIREFOX_BIN_ENV")
-    )
+    #path_firefox_bin = WinUtils.filepath_real(
+    #    env.get(channel, "PATH_FIREFOX_BIN_ENV")
+    #)
+    path_firefox_bin = env.get(channel, "PATH_FIREFOX_BIN_ENV")
     cmd = '"{0}" --version'.format(path_firefox_bin)
     return local(cmd)
 

@@ -1,4 +1,5 @@
-FAKE_SPACE = '~'
+#FAKE_SPACE = '~'
+FAKE_SPACE = ' '
 SPACE = ' '
 
 
