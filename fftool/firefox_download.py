@@ -57,6 +57,7 @@ def download(channel):
 
     # If the *.dmg file was downloaded recently, or we don't have the *.app
     # file installed, install the current Firefox channel.
+
     if is_recent_file or not os.path.exists(firefox_bin):
         install(channel)
 

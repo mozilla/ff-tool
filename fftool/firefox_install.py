@@ -26,14 +26,14 @@ def install(channel):
 
     elif IniHandler.is_windows():
         chmodx(installer)
-        local('{0} -ms'.format(installer))
+        local('"{0}" -ms'.format(installer))
 
         if channel == 'beta':
             # Since Beta and General Release channels install
             # to the same directory, install Beta first then
             # rename the directory.
             release_install_dir = env.config.get('release', 'PATH_FIREFOX_APP')
-            local('mv {0} {1}'.format(release_install_dir, install_dir))
+            local('mv "{0}" "{1}"'.format(release_install_dir, install_dir))
 
     elif IniHandler.is_mac():
         from hdiutil import extract_dmg
@@ -42,18 +42,20 @@ def install(channel):
         app_dest_filename = env.get(channel, "APP_DEST_FILENAME")
 
         extract_dmg(installer, app_src_filename, app_dest_filename, channel)
+
     try:
         firefox_version = get_firefox_version(channel)
     except:
         print("YOU FAIL")
         exit()
 
-    Log.header("Installed {0} ({1})".format(firefox_version, channel))
+    Log.header("FIREFOX VERSION")
+    print("Installed {0} ({1})".format(firefox_version, channel))
 
 
 def get_firefox_version(channel):
     path_firefox_bin = env.get(channel, "PATH_FIREFOX_BIN_ENV")
-    cmd = '{0} --version'.format(path_firefox_bin)
+    cmd = '"{0}" --version'.format(path_firefox_bin)
     return local(cmd)
 
 
