@@ -13,6 +13,7 @@ import os
 import shutil
 from tempfile import mkdtemp
 from mozprofile import Profile, Preferences
+from firefox_env_handler import IniHandler
 from fftool import DIR_TEMP_PROFILES as BASE_PROFILE_DIR, PATH_PREFS_ROOT, Log
 import ConfigParser as configparser  # Python 2
 
@@ -57,7 +58,12 @@ def clean_profiles():
         os.remove(os.path.join(BASE_PROFILE_DIR, "profiles.ini"))
     except:
         pass
-    profile_dir = os.path.join(BASE_PROFILE_DIR, "Profiles")
+
+    if IniHandler.is_windows():
+        profile_dir = os.path.join(BASE_PROFILE_DIR, "Profiles")
+    else:
+        profile_dir = BASE_PROFILE_DIR
+
     shutil.rmtree(profile_dir, True)
 
 
