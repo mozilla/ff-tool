@@ -32,20 +32,32 @@ Use caution if you specify your own profile directory as profile cleanup
 functions can wipe out all profiles in your specified directory.
 
 
-:bangbang: _**NOTE:** This tool is work in progress...  DO NOT USE_ :bangbang:
+:bangbang: _**NOTE:** This tool is work in progress...  USE AT YOUR OWN RISK_ :bangbang:
 
 
 ## Installation
 
 ### Pre-requisites
 
-**NOTE:** ff-tool requires you have Python 2.7 (not Python 3.x) and virtualenv installed.
-Windows users must have Cygwin installed. If using Cygwin, you must run it as administrator.
+* Python >= 2.7 and virtualenv (Python 3 not yet supported)
 
-1. Right click on c:\cygwin64\cygwin.bat
-2. Run as administrator
+#### Windows Users
 
-**NOTE:** You will also need to run the Cygwin setup file to install a number of modules including: gcc, make, curl, pycrypto, python2, python-dev, etc.
+* ff-tool will work on Windows, but requires quite a bit of setup. 
+* Also, installation behavior for the Firefox binary is different than for other OSes. In particular, ff-tool installs the Firefox binaries into a "\_temp" directory for all OSes (except Windows) to avoid clobbering your working browser.  Unfortunately, the Windows installer
+forces installation into C:\\Program Files. Since both the release and Beta versions of Firefox install into the same place, you also run the risk of installing one over another.
+* Again, <u>use at your own risk</u>!
+
+
+#### Windows: Installing Cygwin
+ * Download and install [Cygwin](https://cygwin.com/)
+ * A number of dependencies must also be installed including: 
+   gcc, make, curl, pycrypto, python2, python-dev, etc.
+     1. Right click on c:\cygwin64\cygwin.bat
+     2. Run as administrator or you will suffer needlessly
+
+
+
 
 ### Build
 ```sh
