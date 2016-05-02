@@ -12,3 +12,4 @@ Include/
 Lib/
 Scripts/
 pip-selfcheck.json
+.python-version
