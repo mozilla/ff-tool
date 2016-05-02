@@ -6,16 +6,9 @@ Module to download OS-specific versions of Firefox:
 4. Nightly (nightly)
 """
 
-import ConfigParser as configparser  # Python 2 only!
-
-# TBD: enable python 3
-#try:
-#    import configparser  # Python 3
-#except:
-#    import ConfigParser as configparser  # Python 2
-
 import os
 import time
+import ConfigParser as configparser  # Python 2 only!
 
 from fftool import DIR_TEMP_BROWSERS as BASE_DIR, OS_CONFIG as env, Log
 from firefox_install import install, get_firefox_version
