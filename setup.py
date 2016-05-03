@@ -5,10 +5,9 @@ from fftool import __version__
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
-with io.open(os.path.join(here, 'README.md'), encoding='utf8') as f:
+
+with io.open(os.path.join(here, 'README.rst'), encoding='utf8') as f:
     README = f.read()
-with io.open(os.path.join(here, 'CHANGELOG.md'), encoding='utf8') as f:
-    CHANGES = f.read()
 
 extra_options = {
     'packages': find_packages(),
@@ -18,7 +17,7 @@ extra_options = {
 setup(name='ff-tool',
       version=__version__,
       description='Firefox CLI test setup tool',
-      long_description=README + '\n\n' + CHANGES,
+      long_description=README,
       classifiers=['Topic :: Software Development :: Quality Assurance',
                    'Topic :: Software Development :: Testing',
                    'Programming Language :: Python',
