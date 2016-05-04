@@ -1,6 +1,6 @@
 *.sw[op]
 _temp/
-venv
+venv/
 *.pyc
 *.egg-info/
 *.egg
@@ -13,4 +13,6 @@ Include/
 Lib/
 Scripts/
 pip-selfcheck.json
+
+# pyenv
 .python-version

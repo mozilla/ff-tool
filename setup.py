@@ -16,12 +16,11 @@ extra_options = {
 
 setup(name='ff-tool',
       version=__version__,
-      description='Firefox CLI test setup tool',
+      description='Firefox browser CLI test setup tool',
       long_description=README,
       classifiers=['Topic :: Software Development :: Quality Assurance',
                    'Topic :: Software Development :: Testing',
                    'Programming Language :: Python',
-                   'Programming Language :: Python :: 2',
                    'Programming Language :: Python :: 2.7'
                    ],
       keywords='[firefox, test, pref, profile, download, install]',

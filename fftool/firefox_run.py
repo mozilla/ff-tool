@@ -7,7 +7,7 @@ from fftool import (
 
 def launch_firefox(profile_path, channel):
     """relies on the other functions (download, install, profile)
-    having completed. 
+    having completed.
     """
 
     FIREFOX_APP_BIN = env.get(channel, 'PATH_FIREFOX_BIN_ENV')
