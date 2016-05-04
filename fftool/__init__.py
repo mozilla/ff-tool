@@ -10,15 +10,15 @@ __version__ = '0.0.1'
 CHANNELS = ['release',
             'beta',
             'aurora',
-            'nightly',
-            'ALL']
+            'nightly']
 
 DEFAULT_CHANNEL = 'nightly'
 
 DIR_TEMP = '_temp'
 DIR_TEMP_BROWSERS = os.path.join(DIR_TEMP, 'browsers')
+DIR_CONFIGS = 'fftool/configs'
 OS_CONFIG = IniHandler()
-OS_CONFIG.load_os_config('configs')
+OS_CONFIG.load_os_config(DIR_CONFIGS)
 DIR_TEMP_PROFILES = os.path.join(DIR_TEMP, 'profiles')
 PATH_PREFS_ROOT = os.environ.get('PATH_PREFS_ROOT')
 

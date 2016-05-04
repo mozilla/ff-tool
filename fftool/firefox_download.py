@@ -1,20 +1,24 @@
-"""
-Module to download OS-specific versions of Firefox:
-1. General Release (gr)
-2. Beta (beta)
-3. Developer Edition (aurora)
-4. Nightly (nightly)
+"""Module to download OS-specific versions of Firefox:
+1. Nightly (nightly)
+2. Developer Edition (aurora)
+3. Beta (beta)
+4. General Release (release)
 """
 
 import os
 import time
 import ConfigParser as configparser  # Python 2 only!
 
-from fftool import DIR_TEMP_BROWSERS as BASE_DIR, OS_CONFIG as env, Log
+from fftool import (
+    DIR_TEMP_BROWSERS as BASE_DIR,
+    OS_CONFIG as env,
+    DIR_CONFIGS,
+    Log
+)
 from firefox_install import install, get_firefox_version
 from mozdownload import FactoryScraper
 
-CONFIG_CHANNELS = os.path.join('configs', 'channels.ini')
+CONFIG_CHANNELS = os.path.join(DIR_CONFIGS, 'channels.ini')
 SCRIPT_START_TIME = time.time()
 
 config = configparser.ConfigParser()
@@ -26,9 +30,8 @@ def modification_date(filename):
 
 
 def download(channel):
-    if channel == 'ALL':
-        download_all()
-        return
+
+    Log.header('DOWNLOAD FIREFOX')
 
     ch_type = config.get(channel, 'type')
     ch_version = config.get(channel, 'version')
@@ -65,7 +68,8 @@ def download(channel):
         firefox_version = get_firefox_version(channel)
         args = {"channel": channel, "version": firefox_version}
         msg = "You have the latest version of {channel} installed ({version})."
-        Log.header(msg.format(**args))
+        Log.header('BROWSER VERSION')
+        print(msg.format(**args))
 
 
 def download_all():

@@ -1,12 +1,11 @@
-"""
-This module uses Fabric API to generate a Firefox Profile by concatenating the
+"""This module creates a Firefox Profile by concatenating the
 following preferences files:
 - ./_utils/prefs.ini
 - ./<application>/prefs.ini
 - ./<application>/<test_type>/prefs.ini
 
-The profile is then created using the specified name and saved to the ../_temp/
-directory.
+The profile is then created using the specified name and
+saved to the ../_temp/ directory.
 """
 
 import os
@@ -14,7 +13,13 @@ import shutil
 from tempfile import mkdtemp
 from mozprofile import Profile, Preferences
 from firefox_env_handler import IniHandler
-from fftool import DIR_TEMP_PROFILES as BASE_PROFILE_DIR, PATH_PREFS_ROOT, Log
+from fftool import (
+    DIR_TEMP_PROFILES as BASE_PROFILE_DIR,
+    DIR_CONFIGS,
+    PATH_PREFS_ROOT,
+    Log
+)
+
 import ConfigParser as configparser  # Python 2
 
 
@@ -26,6 +31,7 @@ config = configparser.ConfigParser()
 
 def prefs_paths(application, test_type, env='stage'):
     path_global = os.path.join(PATH_PREFS_GLOBAL, 'configs', FILE_PREFS)
+    path_global = os.path.join(PATH_PREFS_GLOBAL, DIR_CONFIGS, FILE_PREFS)
     valid_paths = [path_global]
 
     if application:
@@ -68,7 +74,8 @@ def clean_profiles():
 
 
 def create_mozprofile(profile_dir, application=None, test_type=None, env=None):
-    # Ensure that the base `_temp/profiles/` directory exists before trying to
+
+    # Ensure base `_temp/profiles/` dir exists before trying to
     # create a nested directory.
     if not os.path.exists(BASE_PROFILE_DIR):
         os.mkdir(BASE_PROFILE_DIR)
@@ -92,15 +99,15 @@ def create_mozprofile(profile_dir, application=None, test_type=None, env=None):
     for path in prefs_paths(application, test_type, env):
         prefs.add_file(path)
 
-    # Add the `fftool.profile.name` pref so we can go to about:config and see
-    # what our current profile is.
+    # Add custom user pref: `fftool.profile.name`
+    # so we can go to about:config and verify our current profile.
     prefs.add([("fftool.profile.name", full_profile_dir)])
 
     profile = Profile(
         profile=full_profile_dir, restore=False, preferences=prefs())
 
-    Log.header("Launching browser with the following user configs:")
+    Log.header("USER CONFIGS")
+    print("Launching browser with the following user configs:")
     print(profile.summary())
 
-    # this is the path to the created profile
     return full_profile_dir

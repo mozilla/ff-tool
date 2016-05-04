@@ -1,5 +1,6 @@
-"""
-NOTE: THIS IS AN OSX SPECIFIC FILE, SPECIFICALLY FOR MOUNTING DMG FILES.
+"""Module for OSX-specific utility.
+
+Mounts DMG files.
 """
 
 
@@ -39,8 +40,7 @@ def move_app(src, dest):
 
 
 def extract_dmg(dmg_path, app_src_filename, app_dest_filename, channel):
-    """
-    Mount the *.dmg image, copy the *.app file, then unmount the *.dmg image.
+    """Mount *.dmg image, copy the *.app dir, then unmount *.dmg image.
     """
     dmg_dirname = os.path.dirname(dmg_path)
     tmp_dirname = os.path.join(dmg_dirname, "_dmg_temp")

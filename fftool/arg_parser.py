@@ -3,7 +3,7 @@ from argparse import ArgumentParser
 from fftool import CHANNELS, DEFAULT_CHANNEL
 
 
-def ff_cli():
+def arg_parser():
     parser = ArgumentParser(prog='ff')
 
     parser.add_argument(
