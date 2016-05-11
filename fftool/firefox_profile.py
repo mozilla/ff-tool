@@ -30,7 +30,6 @@ config = configparser.ConfigParser()
 
 
 def prefs_paths(application, test_type, env='stage'):
-    path_global = os.path.join(PATH_PREFS_GLOBAL, 'configs', FILE_PREFS)
     path_global = os.path.join(PATH_PREFS_GLOBAL, DIR_CONFIGS, FILE_PREFS)
     valid_paths = [path_global]
 
