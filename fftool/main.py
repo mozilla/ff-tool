@@ -39,7 +39,7 @@ def main():
             options.profile,
             application=options.app,
             test_type=options.test_type,
-            env=options.env
+            env=options.prefs
         )
 
     # LAUNCH
