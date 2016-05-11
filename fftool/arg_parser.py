@@ -22,9 +22,9 @@ def arg_parser():
     )
 
     parser.add_argument(
-        '-e',
-        '--env',
-        help='Development environment to use (ie: dev, stage, prod).'
+        '-a',
+        '--app',
+        help="Name of the application to test (ie: loop-server)."
     )
 
     parser.add_argument(
@@ -34,9 +34,11 @@ def arg_parser():
     )
 
     parser.add_argument(
-        '-a',
-        '--app',
-        help="Name of the application to test (ie: loop-server)."
+        '-f',
+        '--prefs',
+        help='prefs to specify (i.e. dev, stage, prod) or \
+              specify multiple prefs contatenated with a "+" \
+              (i.e. stage+mozfull, pre-prod+mozstd, etc.)'
     )
 
     parser.add_argument(

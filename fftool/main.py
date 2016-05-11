@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 
-from fftool import PATH_PREFS_ROOT, Log
+from outlawg import Outlawg
+from fftool import PATH_PREFS_ROOT, PLUS
 from arg_parser import arg_parser
 from firefox_download import download
 from firefox_profile import create_mozprofile, clean_profiles
 from firefox_run import launch_firefox
+
+Log = Outlawg()
 
 
 def main():

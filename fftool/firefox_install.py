@@ -2,13 +2,17 @@
 
 import os
 import stat
+from outlawg import Outlawg
 from firefox_env_handler import IniHandler
 from fftool import (
     DIR_TEMP_BROWSERS as BASE_DIR,
-    OS_CONFIG as env,
-    local,
-    Log
+    DIR_CONFIGS,
+    local
 )
+
+Log = Outlawg()
+env = IniHandler()
+env.load_os_config(DIR_CONFIGS)
 
 
 def chmodx(path):

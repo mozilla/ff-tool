@@ -10,53 +10,74 @@ saved to the ../_temp/ directory.
 
 import os
 import shutil
+import ConfigParser as configparser
 from tempfile import mkdtemp
+from outlawg import Outlawg
 from mozprofile import Profile, Preferences
 from firefox_env_handler import IniHandler
 from fftool import (
     DIR_TEMP_PROFILES as BASE_PROFILE_DIR,
     DIR_CONFIGS,
     PATH_PREFS_ROOT,
-    Log
+    FILE_PREFS,
+    PLUS
 )
-
-import ConfigParser as configparser  # Python 2
 
 
 PATH_PREFS_GLOBAL = os.path.abspath('.')
-FILE_PREFS = 'prefs.ini'
 
 config = configparser.ConfigParser()
+Log = Outlawg()
+
+def valid_path_list(prefs, valid_paths, path_app):
+    if os.path.exists(path_app):
+        config.read(path_app)
+        # Make sure the specified INI file has the specified section.
+
+        for env in prefs:
+            if config.has_section(env):
+                valid_paths.append(path_app + ":" + env)
+            else:
+                valid_paths.append(path_app)
+    return valid_paths
 
 
-def prefs_paths(application, test_type, env='stage'):
-    path_global = os.path.join(PATH_PREFS_GLOBAL, 'configs', FILE_PREFS)
+def prefs_paths(application, test_type, option_prefs='stage'):
     path_global = os.path.join(PATH_PREFS_GLOBAL, DIR_CONFIGS, FILE_PREFS)
     valid_paths = [path_global]
+
+    # convert prefs option to an iterable
+    prefs = option_prefs.split(PLUS)
+
 
     if application:
         path_app_dir = os.path.join(PATH_PREFS_ROOT, application)
 
         path_app = os.path.join(path_app_dir, FILE_PREFS)
-        if os.path.exists(path_app):
-            config.read(path_app)
-            # Make sure the specified INI file has the specified section.
-            if config.has_section(env):
-                valid_paths.append(path_app + ":" + env)
-            else:
-                valid_paths.append(path_app)
+
+        valid_paths = valid_path_list(prefs, valid_paths, path_app)
 
         if test_type:
             path_app_test_type = os.path.join(
                 path_app_dir, test_type, FILE_PREFS)
-            if os.path.exists(path_app_test_type):
-                config.read(path_app_test_type)
-                if config.has_section(env):
-                    valid_paths.append(path_app_test_type + ":" + env)
-                else:
-                    valid_paths.append(path_app_test_type)
+
+            valid_paths = valid_path_list(prefs, valid_paths, path_app_test_type)
 
     return valid_paths
+
+
+def clean_profiles():
+    try:
+        os.remove(os.path.join(BASE_PROFILE_DIR, "profiles.ini"))
+    except:
+        pass
+
+    if IniHandler.is_windows():
+        profile_dir = os.path.join(BASE_PROFILE_DIR, "Profiles")
+    else:
+        profile_dir = BASE_PROFILE_DIR
+
+    shutil.rmtree(profile_dir, True)
 
 
 def clean_profiles():
@@ -97,6 +118,7 @@ def create_mozprofile(profile_dir, application=None, test_type=None, env=None):
     prefs = Preferences()
 
     for path in prefs_paths(application, test_type, env):
+        #print('PREFS.ADD_FILE(PATH): ' + path)
         prefs.add_file(path)
 
     # Add custom user pref: `fftool.profile.name`
