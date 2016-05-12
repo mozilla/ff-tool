@@ -1,11 +1,13 @@
 language: python
 python: 2.7
+
 env:
   global:
     - TOX_ENV=py27
     - TOX_ENV=flake8
+
 git:
-  depth: 200 
+  depth: 1000 
 
 install:
     - pip install tox
