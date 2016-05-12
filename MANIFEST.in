@@ -2,3 +2,4 @@ include tox.ini
 include README.rst
 include CHANGELOG.md
 graft fftool/configs/*
+include linux.ini
