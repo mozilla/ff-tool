@@ -4,6 +4,9 @@ env:
   global:
     - TOX_ENV=py27
     - TOX_ENV=flake8
+git:
+  depth: 9999999
+
 install:
     - pip install tox
     - pip install -r requirements.txt
