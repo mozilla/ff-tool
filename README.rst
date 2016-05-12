@@ -4,7 +4,7 @@ ff-tool
 
 |Build Status|
 
-.. |Build Status| image:: https://travis-ci.org/rpappalax/ff-tool.svg?branch=dev
+.. |Build Status| image:: https://travis-ci.org/rpappalax/ff-tool.svg
    :target: https://travis-ci.org/rpappalax/ff-tool
 
 .. contents::
