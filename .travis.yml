@@ -5,7 +5,7 @@ env:
     - TOX_ENV=py27
     - TOX_ENV=flake8
 git:
-  depth: 9999999
+  depth: 200 
 
 install:
     - pip install tox
