@@ -4,7 +4,7 @@ from firefox_env_handler import IniHandler
 from outlawg import Outlawg
 
 
-__version__ = '0.0.1'
+__version__ = '0.1.1'
 
 
 CHANNELS = ['release',
