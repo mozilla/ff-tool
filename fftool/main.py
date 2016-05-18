@@ -1,17 +1,16 @@
 #!/usr/bin/env python
 
-from fftool import DEFAULT_CHANNEL, PATH_PREFS_ROOT, Log
-from ff_cli import ff_cli
+from fftool import PATH_PREFS_ROOT, Log
+from arg_parser import arg_parser
 from firefox_download import download
 from firefox_profile import create_mozprofile, clean_profiles
 from firefox_run import launch_firefox
 
 
 def main():
-    options = ff_cli()
+    Log.header('FF-TOOL: download, install & launch Firefox!', 'XL', '=')
+    options = arg_parser()
 
-    # If the user is trying to create application specific configs but didn't
-    # specify their `$PATH_PREFS_ROOT` environment variable, exit early.
     if options.app and not PATH_PREFS_ROOT:
         Log.header("ERROR")
         print("Missing path to $PATH_PREFS_ROOT directory.")
@@ -26,8 +25,8 @@ def main():
     # DOWNLOAD/INSTALL
     download(options.channel)
 
-    # If user specified `--install-only`, then just download/install specified
-    # channel(s) and exit early.
+    # If user specified `--install-only`, then
+    # download/install specified channel(s) and exit early.
     if (options.install_only):
         return
 
@@ -41,11 +40,6 @@ def main():
         )
 
     # LAUNCH
-    # If we downloaded "ALL" browsers/channels, override the specified channel
-    # with the default channel so we only launch one browser.
-    if options.channel.upper() == 'ALL':
-        options.channel = DEFAULT_CHANNEL
-
     if not options.no_launch:
         launch_firefox(profile_path, channel=options.channel)
 

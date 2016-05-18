@@ -5,7 +5,7 @@ ff-tool
 |Build Status|
 
 .. |Build Status| image:: https://travis-ci.org/rpappalax/ff-tool.svg?branch=dev
-   :target: https://travis-ci.org/rpappalax/ff-tool
+   :target: https://travis-ci.org/rpappalax/ff-tool?branch=dev
 
 .. contents::
 
@@ -70,7 +70,7 @@ Installation
 **Windows: Installing Cygwin**
 
 -  Download and install: `Cygwin <https://cygwin.com/>`_
--  Right click on: c:\\cygwin64\\cygwin.bat
+-  Right click on: c:\\\\cygwin64\\cygwin.bat
 -  Run as administrator or you will suffer.
 -  A number of dependencies must also be installed including: gcc, make,
    curl, pycrypto, python2, python-dev, etc.
@@ -185,20 +185,4 @@ new one with that name.
 ::
 
    $ ff -c beta -p my_cool_profile1 -a loop-server -e stage -t e2e-test
-
-Download all browsers, but don't create a profile or launch any browsers...
----------------------------------------------------------------------------
-
-**NOTE:** This is useful for our daily refresh task where we make sure
-we have the latest browsers installed.
-
--  version: all
--  profile\_name: none
-
-::
-
-   $ ff -c ALL --install-only
-
-
-
 

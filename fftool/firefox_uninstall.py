@@ -5,13 +5,12 @@ import shutil
 import sys
 
 from firefox_env_handler import IniHandler
-from fftool import local
+from fftool import local, Log, DIR_CONFIGS
 
 
 def rimraf(path):
-    """
-    Recursively delete the specified path.
-    """
+    """Recursively delete the specified path."""
+
     if os.path.isdir(path):
         print(('Deleting {0}'.format(path)))
         shutil.rmtree(path)
@@ -22,12 +21,14 @@ def rimraf(path):
 
 class FirefoxUninstall(object):
     def __init__(self, config, archive_dir="temp"):
+
+        Log.header('UNINSTALL FIREFOX')
         self.CACHE_FILE = "cache.ini"
         self.out_dir = archive_dir
         self.cache_path = os.path.join(self.out_dir, self.CACHE_FILE)
         self.cache = IniHandler(self.cache_path)
 
-        # Do some basic type checking on the `config` attribute.
+        # Do some basic type checking on `config` attribute.
         if isinstance(config, IniHandler):
             self.config = config
         elif isinstance(config, str):
@@ -37,9 +38,10 @@ class FirefoxUninstall(object):
             sys.exit("FirefoxUninstall: Unexpected config data type")
 
     def uninstall_all(self, force=False):
-        """
-        Delete all the Firefox apps (nightly, aurora, beta, general release),
-        and then delete the shared profiles directory.
+        """Cleanup function:
+
+        1. Delete all Firefox apps: nightly, aurora, beta, (general) release.
+        2. delete the shared profiles directory.
         """
         IniHandler.banner("UNINSTALLING FIREFOXES")
 
@@ -69,9 +71,12 @@ class FirefoxUninstall(object):
 
 
 def main():
-    config_path = "./configs/"
+
+    config_path = DIR_CONFIGS
     ff_uninstall = FirefoxUninstall(config_path)
     ff_uninstall.uninstall_all()
 
+
 if __name__ == '__main__':
+
     main()

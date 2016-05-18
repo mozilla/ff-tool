@@ -1,11 +1,10 @@
 *.sw[op]
 _temp/
-venv
+venv/
 *.pyc
 *.egg-info/
 *.egg
 dist/
-.tox/
 .DS_Store
 
 # cygwin
@@ -13,4 +12,6 @@ Include/
 Lib/
 Scripts/
 pip-selfcheck.json
+
+# pyenv
 .python-version

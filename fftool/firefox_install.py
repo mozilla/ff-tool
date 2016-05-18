@@ -2,9 +2,13 @@
 
 import os
 import stat
-from fftool import local, Log
 from firefox_env_handler import IniHandler
-from fftool import DIR_TEMP_BROWSERS as BASE_DIR, OS_CONFIG as env
+from fftool import (
+    DIR_TEMP_BROWSERS as BASE_DIR,
+    OS_CONFIG as env,
+    local,
+    Log
+)
 
 
 def chmodx(path):
@@ -13,9 +17,8 @@ def chmodx(path):
 
 
 def install(channel):
-    if channel == 'ALL':
-        install_all()
-        return
+
+    Log.header('INSTALL FIREFOX')
 
     install_dir = env.get(channel, 'PATH_FIREFOX_APP')
     filename = env.get(channel, 'DOWNLOAD_FILENAME')
@@ -46,7 +49,7 @@ def install(channel):
     try:
         firefox_version = get_firefox_version(channel)
     except:
-        print("YOU FAIL")
+        print("ERROR: Install Failed - Aborting!")
         exit()
 
     Log.header("FIREFOX VERSION")
