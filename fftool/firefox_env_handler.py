@@ -64,7 +64,7 @@ class IniHandler(FirefoxEnvHandler):
 
     def load_os_config(self, config_path):
         """Loads INI file based on current OS:
-           "darwin.ini", "cygwin.ini", "linux-gnu.ini", etc.
+           "darwin.ini", "cygwin.ini", "linux(-gnu).ini", etc.
         """
         os_config = os.path.join(config_path, IniHandler.get_os() + '.ini')
         self.load_config(os_config)

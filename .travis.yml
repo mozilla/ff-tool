@@ -1,12 +1,10 @@
 language: python
+
 python: 2.7
-env:
-  global:
-    - TOX_ENV=py27
-    - TOX_ENV=flake8
+
 install:
-    - pip install tox
+    - pip install flake8
     - pip install -r requirements.txt
 
 script:
-    - tox -e $TOX_ENV
+    - flake8 .

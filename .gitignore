@@ -5,7 +5,6 @@ venv/
 *.egg-info/
 *.egg
 dist/
-.tox/
 .DS_Store
 
 # cygwin
