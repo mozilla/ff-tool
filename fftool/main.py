@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from outlawg import Outlawg
-from fftool import PATH_PREFS_ROOT, PLUS
+from fftool import PATH_PREFS_ROOT
 from arg_parser import arg_parser
 from firefox_download import download
 from firefox_profile import create_mozprofile, clean_profiles
