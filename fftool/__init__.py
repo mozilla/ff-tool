@@ -22,6 +22,10 @@ FILE_PREFS = 'prefs.ini'
 PLUS = '+'
 
 
-def local(cmd):
-    output = Popen(cmd, stdout=PIPE, shell=True)
-    return output.stdout.read().strip()
+def local(cmd, logging=False):
+    proc = Popen(cmd, stdout=PIPE, shell=True)
+    if logging:
+        # return proc.stdout.read().strip()
+        for line in iter(proc.stdout.readline, b''):
+            print(line.strip())
+    proc.stdout.close()

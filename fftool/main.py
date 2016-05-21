@@ -44,7 +44,8 @@ def main():
 
     # LAUNCH
     if not options.no_launch:
-        launch_firefox(profile_path, channel=options.channel)
+        launch_firefox(profile_path, channel=options.channel,
+                       logging=options.logging)
 
 
 if __name__ == '__main__':
