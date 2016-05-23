@@ -4,8 +4,11 @@ import os
 import shutil
 import sys
 
+from outlawg import Outlawg
 from firefox_env_handler import IniHandler
-from fftool import local, Log, DIR_CONFIGS
+from fftool import local, DIR_CONFIGS
+
+Log = Outlawg()
 
 
 def rimraf(path):

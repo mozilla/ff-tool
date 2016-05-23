@@ -9,20 +9,24 @@ import os
 import time
 import ConfigParser as configparser  # Python 2 only!
 
+from outlawg import Outlawg
 from fftool import (
     DIR_TEMP_BROWSERS as BASE_DIR,
-    OS_CONFIG as env,
     DIR_CONFIGS,
-    Log
 )
 from firefox_install import install, get_firefox_version
+from firefox_env_handler import IniHandler
 from mozdownload import FactoryScraper
+
+env = IniHandler()
+env.load_os_config(DIR_CONFIGS)
 
 CONFIG_CHANNELS = os.path.join(DIR_CONFIGS, 'channels.ini')
 SCRIPT_START_TIME = time.time()
 
 config = configparser.ConfigParser()
 config.read(CONFIG_CHANNELS)
+Log = Outlawg()
 
 
 def modification_date(filename):
@@ -59,7 +63,7 @@ def download(channel):
     firefox_bin = env.get(channel, 'PATH_FIREFOX_BIN_ENV')
 
     # If the *.dmg file was downloaded recently, or we don't have the *.app
-    # file installed, install the current Firefox channel.
+    # file installed, install current Firefox channel.
 
     if is_recent_file or not os.path.exists(firefox_bin):
         install(channel)

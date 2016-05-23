@@ -151,7 +151,16 @@ Example:
 Custom prefs must be stored in the following directory/file structure:
 
 You must also include a prefs.ini file which specifies the
-environment(s) in which each pref set is used.
+pref(s) in which each pref set is used. This is especially useful for
+defining things like pref sets you want to define for a specific test
+environment (example: dev, stage, pre-prod, prod).
+
+You can specify one pref or multiple prefs by concatenating them 
+with a "+" sign.  i.e. stage or  stage+fruits
+
+Some prefs (like test environments) would only make sense specifying 
+one of those at a time.  For example, you wouldn't specify: dev+stage+prod,
+but you could specify: prod+fruits+vegetables
 
 Example prefs.ini:
 
@@ -166,6 +175,11 @@ Example prefs.ini:
    [stage]
    pref_key = pref_value
 
+   [fruits]
+   banana = yellow
+
+   [vegetables]
+   asparagus = green
 
 Cloud Services (only)
 =====================
@@ -176,13 +190,13 @@ Launch browser, clean profile, specify services-specific options...
 -  version: Beta
 -  profile\_name: my\_cool\_profile1
 -  product: loop-server
--  environment: stage
 -  test-type: e2e-test
+-  prefs: stage  
 
 **NOTE:** If the specified profile exists, we use it, if not we create a
 new one with that name.
 
 ::
 
-   $ ff -c beta -p my_cool_profile1 -a loop-server -e stage -t e2e-test
+   $ ff -c beta -p my_cool_profile1 -a loop-server -t e2e-test -f stage
 

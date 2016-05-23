@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 
-from fftool import PATH_PREFS_ROOT, Log
+from outlawg import Outlawg
+from fftool import PATH_PREFS_ROOT
 from arg_parser import arg_parser
 from firefox_download import download
 from firefox_profile import create_mozprofile, clean_profiles
 from firefox_run import launch_firefox
+
+Log = Outlawg()
 
 
 def main():
@@ -36,12 +39,13 @@ def main():
             options.profile,
             application=options.app,
             test_type=options.test_type,
-            env=options.env
+            env=options.prefs
         )
 
     # LAUNCH
     if not options.no_launch:
-        launch_firefox(profile_path, channel=options.channel)
+        launch_firefox(profile_path, channel=options.channel,
+                       logging=options.logging)
 
 
 if __name__ == '__main__':

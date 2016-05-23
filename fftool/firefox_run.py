@@ -1,11 +1,16 @@
+from outlawg import Outlawg
 from fftool import (
-    OS_CONFIG as env,
-    Log,
+    DIR_CONFIGS,
     local
 )
+from firefox_env_handler import IniHandler
+
+Log = Outlawg()
+env = IniHandler()
+env.load_os_config(DIR_CONFIGS)
 
 
-def launch_firefox(profile_path, channel):
+def launch_firefox(profile_path, channel, logging):
     """relies on the other functions (download, install, profile)
     having completed.
     """
@@ -20,4 +25,4 @@ def launch_firefox(profile_path, channel):
 
     cmd = '"{0}" -profile "{1}"'.format(FIREFOX_APP_BIN, profile_path)
     print('CMD: ' + cmd)
-    local(cmd)
+    local(cmd, logging)
