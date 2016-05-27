@@ -43,11 +43,13 @@ def valid_path_list(prefs, valid_paths, path_app):
     return valid_paths
 
 
-def prefs_paths(application, test_type, option_prefs='stage'):
+def prefs_paths(application, test_type, option_prefs=''):
     path_global = os.path.join(PATH_PREFS_GLOBAL, DIR_CONFIGS, FILE_PREFS)
     valid_paths = [path_global]
 
     # convert prefs option to an iterable
+    if option_prefs is None:
+        option_prefs = ''
     prefs = option_prefs.split(PLUS)
 
     if application:

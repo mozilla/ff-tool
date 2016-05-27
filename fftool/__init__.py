@@ -28,4 +28,6 @@ def local(cmd, logging=False):
         # return proc.stdout.read().strip()
         for line in iter(proc.stdout.readline, b''):
             print(line.strip())
+    result = proc.stdout.read().strip()
     proc.stdout.close()
+    return result
