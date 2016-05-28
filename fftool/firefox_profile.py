@@ -107,7 +107,6 @@ def create_mozprofile(profile_dir, application=None, test_type=None, env=None):
     prefs = Preferences()
 
     for path in prefs_paths(application, test_type, env):
-        # print('PREFS.ADD_FILE(PATH): ' + path)
         prefs.add_file(path)
 
     # Add custom user pref: `fftool.profile.name`
