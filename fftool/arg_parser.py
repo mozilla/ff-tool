@@ -49,6 +49,13 @@ def arg_parser():
     )
 
     parser.add_argument(
+        '-n',
+        '--nspr-log-modules',
+        help="Output Firefox NSPR logging. \
+              https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSPR/Reference/NSPR_LOG_MODULES"  # noqa
+    )
+
+    parser.add_argument(
         '--no-launch',
         action='store_true',
         help="Don't launch a Firefox instance (aka: install only)."
