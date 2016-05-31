@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from outlawg import Outlawg
-from fftool import PATH_PREFS_ROOT
+from fftool import PATH_PREFS_ROOT, __version__
 from arg_parser import arg_parser
 from firefox_download import download
 from firefox_profile import create_mozprofile, clean_profiles
@@ -13,6 +13,10 @@ Log = Outlawg()
 def main():
     Log.header('FF-TOOL: download, install & launch Firefox!', 'XL', '=')
     options = arg_parser()
+
+    if options.version:
+        print('FF-TOOL VERSION: {0}'.format(__version__))
+        return
 
     if options.app and not PATH_PREFS_ROOT:
         Log.header("ERROR")

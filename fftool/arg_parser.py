@@ -74,4 +74,11 @@ def arg_parser():
               directory"
     )
 
+    parser.add_argument(
+        '-v',
+        '--version',
+        action='store_true',
+        help="Print ff-tool version, then quit."
+    )
+
     return parser.parse_args()
