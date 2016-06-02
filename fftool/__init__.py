@@ -1,5 +1,6 @@
 import os
-from subprocess import Popen, PIPE
+from subprocess import Popen, PIPE, STDOUT
+from outlawg import Outlawg
 
 
 __version__ = '0.1.1'
@@ -21,13 +22,16 @@ PATH_PREFS_ROOT = os.environ.get('PATH_PREFS_ROOT')
 FILE_PREFS = 'prefs.ini'
 PLUS = '+'
 
+Log = Outlawg()
+
 
 def local(cmd, logging=False):
-    proc = Popen(cmd, stdout=PIPE, shell=True)
+    proc = Popen(cmd, stdout=PIPE, stderr=STDOUT, shell=True)
     if logging:
-        # return proc.stdout.read().strip()
+        Log.header("FIREFOX LOGS")
         for line in iter(proc.stdout.readline, b''):
             print(line.strip())
-    result = proc.stdout.read().strip()
-    proc.stdout.close()
+    else:
+        result = proc.stdout.read().strip()
+        proc.stdout.close()
     return result

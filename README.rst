@@ -146,7 +146,7 @@ Example:
 
 ::
 
-   $ export PREFS_ROOT_DIR = '../services-test'
+   $ export PATH_PREFS_ROOT = '../services-test'
 
 Custom prefs must be stored in the following directory/file structure:
 

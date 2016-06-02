@@ -38,20 +38,18 @@ def main():
         return
 
     # PROFILE
-    if not options.no_profile:
-        profile_path = create_mozprofile(
-            options.profile,
-            application=options.app,
-            test_type=options.test_type,
-            env=options.prefs
-        )
+    profile_path = create_mozprofile(
+        options.profile,
+        application=options.app,
+        test_type=options.test_type,
+        env=options.prefs
+    )
 
     # LAUNCH
-    if not options.no_launch:
-        launch_firefox(profile_path,
-                       channel=options.channel,
-                       logging=options.logging,
-                       nspr_log_modules=options.nspr_log_modules)
+    launch_firefox(profile_path,
+                   channel=options.channel,
+                   logging=options.logging,
+                   nspr_log_modules=options.nspr_log_modules)
 
 
 if __name__ == '__main__':
