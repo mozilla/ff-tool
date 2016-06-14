@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 
 import os
-import platform
-import re
 import sys
+import mozinfo
 import ConfigParser as configparser
 from outlawg import Outlawg
 
@@ -16,14 +15,7 @@ class FirefoxEnvHandler():
 
     @staticmethod
     def get_os():
-        """Determine OS"""
-        system = platform.system().lower()
-        system = re.split('[-_]', system, maxsplit=1).pop(0)
-
-        if system == "cygwin":
-            return "windows"
-
-        return system
+        return mozinfo.os
 
     @classmethod
     def is_linux(cls):
@@ -31,7 +23,7 @@ class FirefoxEnvHandler():
 
     @classmethod
     def is_mac(cls):
-        return cls.get_os() == "darwin"
+        return cls.get_os() == "mac"
 
     @classmethod
     def is_other(cls):
