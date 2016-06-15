@@ -181,6 +181,25 @@ Example prefs.ini:
    [vegetables]
    asparagus = green
 
+
+Offline use
+=====================
+
+ff-tool has a --no-download option.
+
+::
+
+  $ ff --no-download
+
+
+This may may be useful if wifi is down / internet unavailable or you simply want
+to use ff-tool with a cached version of Firefox.  
+
+NOTE: 
+The --no-download option will not work if you don't have a cached version of firefox
+in your _temp (cache) folder.
+
+
 Cloud Services (only)
 =====================
 
@@ -198,5 +217,6 @@ new one with that name.
 
 ::
 
-   $ ff -c beta -p my_cool_profile1 -a loop-server -t e2e-test -f stage
+   $ ff -c beta -p my_cool_profile1 -d loop-server/e2e-test:stage
+   $ ff -c nightly -p my_cool_profile2 -d shavar/e2e-test:stage+moztestpub
 

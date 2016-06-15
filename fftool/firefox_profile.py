@@ -1,5 +1,5 @@
 """This module creates a Firefox Profile by concatenating the
-following preferences files:
+preferences files specified by --prefs-dirs, like so:
 - ./_utils/prefs.ini
 - ./<application>/prefs.ini
 - ./<application>/<test_type>/prefs.ini
@@ -20,7 +20,6 @@ from fftool import (
     DIR_CONFIGS,
     PATH_PREFS_ROOT,
     FILE_PREFS,
-    PLUS
 )
 
 
@@ -43,28 +42,41 @@ def valid_path_list(prefs, valid_paths, path_app):
     return valid_paths
 
 
-def prefs_paths(application, test_type, option_prefs=''):
+def prefs_paths(prefs_dirs):
+    # we'll always use seed with this global set of testing prefs
     path_global = os.path.join(PATH_PREFS_GLOBAL, DIR_CONFIGS, FILE_PREFS)
     valid_paths = [path_global]
 
-    # convert prefs option to an iterable
-    if option_prefs is None:
-        option_prefs = ''
-    prefs = option_prefs.split(PLUS)
+    # user can specify prefs for a given file like so:
+    # -d my/path/here
+    # or
+    # -d my/path/here:section1+section2+section3
+    # (in this case we'll only grab specified sections)
+    # We'll also convert this to format mozprofile can work with:
+    # /Abs/path/my/path/here:section1
+    # /Abs/path/my/path/here:section2
+    # /Abs/path/my/path/here:section3
 
-    if application:
-        path_app_dir = os.path.join(PATH_PREFS_ROOT, application)
+    for prefs_dir in prefs_dirs:
+        prefs_dir_chunks = prefs_dir.split(':')
+        path_pref_file = os.path.join(
+            PATH_PREFS_ROOT,
+            prefs_dir_chunks[0],
+            FILE_PREFS
+        )
+        # TODO:
+        # add in valid_paths_list checker
+        if ':' in prefs_dir:
+            if '+' in prefs_dir:
+                sections = prefs_dir_chunks[1].split('+')
+            else:
+                sections = [prefs_dir_chunks[1]]
 
-        path_app = os.path.join(path_app_dir, FILE_PREFS)
-
-        valid_paths = valid_path_list(prefs, valid_paths, path_app)
-
-        if test_type:
-            path_app_test_type = os.path.join(
-                path_app_dir, test_type, FILE_PREFS)
-
-            valid_paths = valid_path_list(prefs, valid_paths,
-                                          path_app_test_type)
+            for section in sections:
+                path_tmp = '{0}:{1}'.format(path_pref_file, section)
+                valid_paths.append(path_tmp)
+        else:
+            valid_paths.append(path_pref_file)
 
     return valid_paths
 
@@ -83,8 +95,7 @@ def clean_profiles():
     shutil.rmtree(profile_dir, True)
 
 
-def create_mozprofile(profile_dir, application=None, test_type=None, env=None):
-
+def create_mozprofile(profile_dir, prefs_dirs=None, env=None):
     # Ensure base `_temp/profiles/` dir exists before trying to
     # create a nested directory.
     if not os.path.exists(BASE_PROFILE_DIR):
@@ -106,8 +117,10 @@ def create_mozprofile(profile_dir, application=None, test_type=None, env=None):
 
     prefs = Preferences()
 
-    for path in prefs_paths(application, test_type, env):
-        prefs.add_file(path)
+    if prefs_dirs:
+        for path in prefs_paths(prefs_dirs):
+            print('PREFS.ADD_FILE(PATH): ' + path)
+            prefs.add_file(path)
 
     # Add custom user pref: `fftool.profile.name`
     # so we can go to about:config and verify our current profile.

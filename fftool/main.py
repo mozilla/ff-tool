@@ -18,7 +18,7 @@ def main():
         print('FF-TOOL VERSION: {0}'.format(__version__))
         return
 
-    if options.app and not PATH_PREFS_ROOT:
+    if (options.prefs_dirs) and not PATH_PREFS_ROOT:
         Log.header("ERROR")
         print("Missing path to $PATH_PREFS_ROOT directory.")
         print("Please set the `PATH_PREFS_ROOT` environment variable and " +
@@ -30,7 +30,8 @@ def main():
         return
 
     # DOWNLOAD/INSTALL
-    download(options.channel)
+    if not (options.no_download):
+        download(options.channel)
 
     # If user specified `--install-only`, then
     # download/install specified channel(s) and exit early.
@@ -40,9 +41,7 @@ def main():
     # PROFILE
     profile_path = create_mozprofile(
         options.profile,
-        application=options.app,
-        test_type=options.test_type,
-        env=options.prefs
+        prefs_dirs=options.prefs_dirs,
     )
 
     # LAUNCH

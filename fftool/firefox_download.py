@@ -7,6 +7,7 @@
 
 import os
 import time
+from requests.exceptions import ConnectionError
 import ConfigParser as configparser  # Python 2 only!
 
 from outlawg import Outlawg
@@ -30,7 +31,13 @@ Log = Outlawg()
 
 
 def modification_date(filename):
-    return os.path.getmtime(filename)
+    try:
+        mtime = os.path.getmtime(filename)
+    except OSError as e:
+        Log.header('ERROR!')
+        print(e)
+        exit()
+    return mtime
 
 
 def download(channel):
@@ -50,14 +57,18 @@ def download(channel):
     args = {"channel": channel, "download_path": download_path}
     print("Downloading {channel} to {download_path}".format(**args))
 
-    scraper = FactoryScraper(
-        ch_type,
-        version=ch_version,
-        branch=ch_branch,
-        destination=download_path,
-        platform=ch_platform
-    )
-    scraper.download()
+    try:
+        scraper = FactoryScraper(
+            ch_type,
+            version=ch_version,
+            branch=ch_branch,
+            destination=download_path,
+            platform=ch_platform
+        )
+        scraper.download()
+    except ConnectionError:
+        Log.header('WARNING!')
+        print('HTTPS connection unavailable.\nLooking for cached browser...')
 
     is_recent_file = modification_date(download_path) > SCRIPT_START_TIME
     firefox_bin = env.get(channel, 'PATH_FIREFOX_BIN_ENV')

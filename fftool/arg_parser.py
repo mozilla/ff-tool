@@ -22,23 +22,11 @@ def arg_parser():
     )
 
     parser.add_argument(
-        '-a',
-        '--app',
-        help="Name of the application to test (ie: loop-server)."
-    )
-
-    parser.add_argument(
-        '-t',
-        '--test-type',
-        help="Name of the test-type (ie: e2e-test, stack-check)."
-    )
-
-    parser.add_argument(
-        '-f',
-        '--prefs',
-        help='prefs to specify (i.e. dev, stage, prod) or \
-              specify multiple prefs contatenated with a "+" \
-              (i.e. stage+mozfull, pre-prod+mozstd, etc.)'
+        '-d',
+        '--prefs-dirs',
+        action='append',
+        help="Relative path(s) to prefs file(s) - OK to specify multiple. \
+              NOTE: pref file must be called: prefs.ini"
     )
 
     parser.add_argument(
@@ -53,6 +41,12 @@ def arg_parser():
         '--nspr-log-modules',
         help="Output Firefox NSPR logging. \
               https://developer.mozilla.org/docs/Mozilla/Projects/NSPR/Reference/NSPR_LOG_MODULES"  # noqa
+    )
+
+    parser.add_argument(
+        '--no-download',
+        action='store_true',
+        help="Use cached Firefox (no download)."
     )
 
     parser.add_argument(

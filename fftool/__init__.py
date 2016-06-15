@@ -20,7 +20,6 @@ DIR_CONFIGS = '{0}/configs'.format(HERE)
 DIR_TEMP_PROFILES = os.path.join(DIR_TEMP, 'profiles')
 PATH_PREFS_ROOT = os.environ.get('PATH_PREFS_ROOT')
 FILE_PREFS = 'prefs.ini'
-PLUS = '+'
 
 Log = Outlawg()
 
