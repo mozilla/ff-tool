@@ -59,7 +59,7 @@ def arg_parser():
     parser.add_argument(
         '--clean-profiles',
         action='store_true',
-        help="Delete all the fftool.* profile directories in the _temp/profiles\
+        help="Delete all the fftool.* profile directories in the .cache/profiles\
               directory"
     )
 

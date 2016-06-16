@@ -5,7 +5,7 @@ preferences files specified by --prefs-dirs, like so:
 - ./<application>/<test_type>/prefs.ini
 
 The profile is then created using the specified name and
-saved to the ../_temp/ directory.
+saved to the ../.cache/ directory.
 """
 
 import os
@@ -96,7 +96,7 @@ def clean_profiles():
 
 
 def create_mozprofile(profile_dir, prefs_dirs=None, env=None):
-    # Ensure base `_temp/profiles/` dir exists before trying to
+    # Ensure base `.cache/profiles/` dir exists before trying to
     # create a nested directory.
     if not os.path.exists(BASE_PROFILE_DIR):
         os.mkdir(BASE_PROFILE_DIR)

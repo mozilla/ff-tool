@@ -1,5 +1,4 @@
 *.sw[op]
-_temp*/
 venv/
 *.pyc
 *.egg-info/
@@ -15,3 +14,4 @@ pip-selfcheck.json
 
 # pyenv
 .python-version
+.cache/
