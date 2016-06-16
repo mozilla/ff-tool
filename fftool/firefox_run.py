@@ -4,7 +4,7 @@ from fftool import (
     DIR_CONFIGS,
     local
 )
-from firefox_env_handler import IniHandler
+from ini_handler import IniHandler
 
 Log = Outlawg()
 env = IniHandler()

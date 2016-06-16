@@ -16,7 +16,7 @@ from fftool import (
     DIR_CONFIGS,
 )
 from firefox_install import install, get_firefox_version
-from firefox_env_handler import IniHandler
+from ini_handler import IniHandler
 from mozdownload import FactoryScraper
 
 env = IniHandler()

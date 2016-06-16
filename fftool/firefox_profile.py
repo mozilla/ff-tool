@@ -14,7 +14,7 @@ import ConfigParser as configparser
 from tempfile import mkdtemp
 from outlawg import Outlawg
 from mozprofile import Profile, Preferences
-from firefox_env_handler import IniHandler
+from ini_handler import IniHandler
 from fftool import (
     DIR_TEMP_PROFILES as BASE_PROFILE_DIR,
     DIR_CONFIGS,

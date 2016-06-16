@@ -3,7 +3,7 @@
 import os
 import stat
 from outlawg import Outlawg
-from firefox_env_handler import IniHandler
+from ini_handler import IniHandler
 from fftool import (
     DIR_TEMP_BROWSERS as BASE_DIR,
     DIR_CONFIGS,

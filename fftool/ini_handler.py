@@ -2,40 +2,15 @@
 
 import os
 import sys
-import mozinfo
 import ConfigParser as configparser
 from outlawg import Outlawg
+from os_handler import OSHandler
 
 Log = Outlawg()
 
 
-class FirefoxEnvHandler():
-    def __init__(self):
-        pass
+class IniHandler(OSHandler):
 
-    @staticmethod
-    def get_os():
-        return mozinfo.os
-
-    @classmethod
-    def is_linux(cls):
-        return cls.get_os() == "linux"
-
-    @classmethod
-    def is_mac(cls):
-        return cls.get_os() == "mac"
-
-    @classmethod
-    def is_other(cls):
-        """Unrecognized OS"""
-        return not (cls.is_linux() or cls.is_mac() or cls.is_windows())
-
-    @classmethod
-    def is_windows(cls):
-        return cls.get_os() == "windows"
-
-
-class IniHandler(FirefoxEnvHandler):
     def __init__(self, ini_path=None):
         """Creates a new config parser object,
         also loads config file if `ini_path` specified.
@@ -56,7 +31,7 @@ class IniHandler(FirefoxEnvHandler):
 
     def load_os_config(self, config_path):
         """Loads INI file based on current OS:
-           "darwin.ini", "cygwin.ini", "linux(-gnu).ini", etc.
+           "mac.ini", "cygwin.ini", "linux(-gnu).ini", etc.
         """
         os_config = os.path.join(config_path, IniHandler.get_os() + '.ini')
         self.load_config(os_config)
