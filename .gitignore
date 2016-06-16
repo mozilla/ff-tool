@@ -1,5 +1,4 @@
 *.sw[op]
-_temp*/
 venv/
 *.pyc
 *.egg-info/
