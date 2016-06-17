@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
-import mozinfo
+import platform
+import re
+
 from outlawg import Outlawg
 
 Log = Outlawg()
@@ -10,7 +12,16 @@ class OSHandler(object):
 
     @staticmethod
     def get_os():
-        return mozinfo.os
+        system = platform.system().lower()
+        system = re.split('[-_]', system, maxsplit=1).pop(0)
+
+        if system == "cygwin":
+            return "windows"
+
+        if system == "darwin":
+            return "mac"
+
+        return system
 
     @classmethod
     def is_linux(cls):
