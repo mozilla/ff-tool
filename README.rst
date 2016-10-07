@@ -132,6 +132,21 @@ new one with that name.
    $ ff -p my_cool_profile1
 
 
+Preinstalling Profile Add-ons
+=============================
+
+Fully qualified URL to an add-on XPI to install in profile.
+Firefox/mozprofile provides the ability to specify zero or more add-ons to
+preinstall into a profile.
+
+Example:
+
+::
+
+   $ ff -c nightly -p my-profile-name -a https://moz-activity-streams-dev.s3.amazonaws.com/dist/activity-streams-latest.xpi --addon https://testpilot.firefox.com/files/pageshot/pageshot-0.1.201609272025.xpi
+
+
+
 Custom Browser Prefs
 ====================
 

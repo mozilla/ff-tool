@@ -13,7 +13,7 @@ import shutil
 import ConfigParser as configparser
 from tempfile import mkdtemp
 from outlawg import Outlawg
-from mozprofile import Profile, Preferences
+from mozprofile import FirefoxProfile, Preferences
 from ini_handler import IniHandler
 from fftool import (
     DIR_TEMP_PROFILES as BASE_PROFILE_DIR,
@@ -95,7 +95,7 @@ def clean_profiles():
     shutil.rmtree(profile_dir, True)
 
 
-def create_mozprofile(profile_dir, prefs_dirs=None, env=None):
+def create_mozprofile(profile_dir, addons, prefs_dirs=None, env=None):
     # Ensure base `.cache/profiles/` dir exists before trying to
     # create a nested directory.
     if not os.path.exists(BASE_PROFILE_DIR):
@@ -126,8 +126,11 @@ def create_mozprofile(profile_dir, prefs_dirs=None, env=None):
     # so we can go to about:config and verify our current profile.
     prefs.add([("fftool.profile.name", full_profile_dir)])
 
-    profile = Profile(
-        profile=full_profile_dir, restore=False, preferences=prefs())
+    profile = FirefoxProfile(
+        addons=addons,
+        profile=full_profile_dir,
+        restore=False,
+        preferences=prefs())
 
     Log.header("USER CONFIGS")
     print("Launching browser with the following user configs:")

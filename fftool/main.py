@@ -41,6 +41,7 @@ def main():
     # PROFILE
     profile_path = create_mozprofile(
         options.profile,
+        options.addon,
         prefs_dirs=options.prefs_dirs,
     )
 

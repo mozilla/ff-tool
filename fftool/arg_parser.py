@@ -7,6 +7,13 @@ def arg_parser():
     parser = ArgumentParser(prog='ff')
 
     parser.add_argument(
+        '-a',
+        '--addon',
+        action='append',
+        help='Fully qualified URL to an add-on XPI to install in profile.'
+    )
+
+    parser.add_argument(
         '-c',
         '--channel',
         choices=CHANNELS,
