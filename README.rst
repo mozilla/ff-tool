@@ -1,5 +1,5 @@
-======= 
-ff-tool 
+=======
+ff-tool
 =======
 
 |Build Status|
@@ -17,7 +17,7 @@ of cloud services. It is largely a convenience wrapper we’ve written
 around these amazing tools/libraries (see note below):
 
 -  `mozdownload <https://github.com/mozilla/mozdownload>`_
--  `mozprofile <https://github.com/mozilla/mozprofile>`_
+-  `mozprofile <http://mozbase.readthedocs.io/en/latest/mozprofile.html>`_
 
 Our typical use case is launching various Firefox browser versions with
 a fresh profile and loading custom preferences. This tool enables us to
@@ -44,7 +44,7 @@ overridden. Use caution if you specify your own profile directory as
 profile cleanup functions can wipe out all profiles in your specified
 directory.
 
-**NOTE:** 
+**NOTE:**
 
 This tool is work in progress… USE AT YOUR OWN RISK!
 
@@ -170,10 +170,10 @@ pref(s) in which each pref set is used. This is especially useful for
 defining things like pref sets you want to define for a specific test
 environment (example: dev, stage, pre-prod, prod).
 
-You can specify one pref or multiple prefs by concatenating them 
+You can specify one pref or multiple prefs by concatenating them
 with a "+" sign.  i.e. stage or  stage+fruits
 
-Some prefs (like test environments) would only make sense specifying 
+Some prefs (like test environments) would only make sense specifying
 one of those at a time.  For example, you wouldn't specify: dev+stage+prod,
 but you could specify: prod+fruits+vegetables
 
@@ -208,9 +208,9 @@ ff-tool has a --no-download option.
 
 
 This may may be useful if wifi is down / internet unavailable or you simply want
-to use ff-tool with a cached version of Firefox.  
+to use ff-tool with a cached version of Firefox.
 
-NOTE: 
+NOTE:
 The --no-download option will not work if you don't have a cached version of firefox
 in your _temp (cache) folder.
 
@@ -225,7 +225,7 @@ Launch browser, clean profile, specify services-specific options...
 -  profile\_name: my\_cool\_profile1
 -  product: loop-server
 -  test-type: e2e-test
--  prefs: stage  
+-  prefs: stage
 
 **NOTE:** If the specified profile exists, we use it, if not we create a
 new one with that name.
@@ -234,4 +234,3 @@ new one with that name.
 
    $ ff -c beta -p my_cool_profile1 -d loop-server/e2e-test:stage
    $ ff -c nightly -p my_cool_profile2 -d shavar/e2e-test:stage+moztestpub
-
