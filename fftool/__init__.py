@@ -8,7 +8,6 @@ __version__ = '0.1.1'
 
 CHANNELS = ['release',
             'beta',
-            'aurora',
             'nightly']
 
 DEFAULT_CHANNEL = 'nightly'

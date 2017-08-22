@@ -43,8 +43,8 @@ class FirefoxUninstall(object):
     def uninstall_all(self, force=False):
         """Cleanup function:
 
-        1. Delete all Firefox apps: nightly, aurora, beta, (general) release.
-        2. delete the shared profiles directory.
+        1. Delete all Firefox apps: nightly, beta, (general) release.
+        2. Delete the shared profiles directory.
         """
         IniHandler.banner("UNINSTALLING FIREFOXES")
 

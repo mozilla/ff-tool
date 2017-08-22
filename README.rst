@@ -111,13 +111,6 @@ Launch browser, clean profile
 
    $ ff
 
--  version: Developer Edition (aurora)
--  profile\_name:
-
-::
-
-   $ ff -c aurora
-
 Launch browser, clean profile, specify profile name
 ===================================================
 

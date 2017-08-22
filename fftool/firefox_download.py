@@ -1,8 +1,7 @@
 """Module to download OS-specific versions of Firefox:
 1. Nightly (nightly)
-2. Developer Edition (aurora)
-3. Beta (beta)
-4. General Release (release)
+2. Beta (beta)
+3. General Release (release)
 """
 
 import os
